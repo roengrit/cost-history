@@ -20,8 +20,7 @@ namespace CostHistory
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (this.IsPostBack)
-            {
+            
                 string language = "en-us";
 
                 //Detect User's Language.
@@ -31,17 +30,26 @@ namespace CostHistory
                     language = Request.UserLanguages[0];
                 }
 
+                if (Session["lang"] != null) {
+                    language = Session["lang"].ToString();
+                }
+
+
                 //Check if PostBack is caused by Language DropDownList.
                 if (Request.Form["__EVENTTARGET"] != null)
                 {
                     //Set the Language.
-                    language = Request.Form["__EVENTTARGET"];
+                    if (Request.Form["lang"] != null)
+                        if (Request.Form["lang"] != "")
+                        {
+                            language = Request.Form["__EVENTTARGET"];
+                            Session["lang"] = language;
+                        }
                 }
 
                 //Set the Culture.
                 Thread.CurrentThread.CurrentCulture = new CultureInfo(language);
                 Thread.CurrentThread.CurrentUICulture = new CultureInfo(language);
             }
-        }
     }
 }

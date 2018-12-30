@@ -33,11 +33,19 @@
 </head>
 <body>
     <form id="Form1" runat="server">
+        <script>
+            function switchlang(lang) {
+                $("#lang").val(lang);
+            __doPostBack(lang, '');
+            }
+        </script>
         <asp:ScriptManager ID="ScriptManager1" runat="server">
         </asp:ScriptManager>
         <div>
+             <input type="hidden" id="lang" name="lang" value="" />
+            
             <nav class="navbar navbar-expand-md navbar-dark bg-success ">
-                <a href="/" class="navbar-brand"  style="padding-left: 65px;">Cost History</a>
+                <a href="/" class="navbar-brand"   >Cost History</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar6">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -62,9 +70,9 @@
                                 role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <%= Resources.Resource.lang %>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#" onclick="javascript:__doPostBack('en-us','')">English</a>
-                                <a class="dropdown-item" href="#" onclick="javascript:__doPostBack('th-TH','')">Thai</a>
-                                <a class="dropdown-item" href="#" onclick="javascript:__doPostBack('lo-LA','')">Laos</a>
+                                <a class="dropdown-item" href="#" onclick="javascript:switchlang('en-us')">English</a>
+                                <a class="dropdown-item" href="#" onclick="javascript:switchlang('th-TH')">Thai</a>
+                                <a class="dropdown-item" href="#" onclick="javascript:switchlang('lo-LA')">Laos</a>
                             </div>
                         </li>
                          <%if (!HttpContext.Current.User.Identity.IsAuthenticated ) {%>
@@ -75,10 +83,10 @@
                         <%else %>
                         <%{ %>
                         <li class="nav-item dropdown active">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" style="padding-right: 65px;"
+                            <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown"  
                                 role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <%=HttpContext.Current.User.Identity.Name.Substring(0, 1).ToUpper() + HttpContext.Current.User.Identity.Name.Substring(1, HttpContext.Current.User.Identity.Name.Length - 1)%>
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown"     >
+                            <div class="dropdown-menu pull-right" aria-labelledby="navbarDropdown"    style="min-width:120px;margin-left:-40px"  >
                                 <a class="dropdown-item" href="<%=ResolveUrl("~/SignOut.aspx") %>"><%=Resources.Resource.signout %></a>
                             </div>
                         </li>

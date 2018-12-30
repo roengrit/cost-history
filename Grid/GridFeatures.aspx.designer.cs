@@ -6,10 +6,14 @@
 //     the code is regenerated. 
 // </auto-generated>
 //------------------------------------------------------------------------------
+
 namespace CostHistory {
+    
+    
     public partial class GridFeatures {
+        
         /// <summary>
-        /// FlatGrid control.
+        /// Grid1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.

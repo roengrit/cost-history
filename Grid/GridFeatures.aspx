@@ -1,26 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" Title="Grid" AutoEventWireup="true" CodeBehind="GridFeatures.aspx.cs" Inherits="CostHistory.GridFeatures" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-<h2>Grid Features:</h2>
-<br />
-<li> Grid Samples - Default</li>
-<li> Filtering</li>
-<li> Sorting</li>
-<li> Paging</li>
-<li> Selection - Single</li>
-<li> Column Resizing</li>
-<li> Frozen Rows and Columns</li>
-<li> Custom Toolbar</li>
-<li> Keyboard Interaction</li>
-<li> Column Chooser</li>
-<li> Allow Wrap</li>
-<li> Header Template</li>
-<li> Scrolling</li>
-<li> Export</li>
-<li> Summary</li>
-<li> Editing Type - Inline Editing</li>
-<li> Localization - en-US</li>
-<li> Theme - Bootstrap-Theme</li>
-<br/>
      <script src='<%= Page.ResolveClientUrl("~/Scripts/ej/i18n/ej.culture.en-US.min.js")%>' type="text/javascript"></script>
 			<script src='<%= Page.ResolveClientUrl("~/Scripts/ej/l10n/ej.localetexts.en-US.min.js")%>' type="text/javascript"></script>
 <div id = "ControlRegion">
