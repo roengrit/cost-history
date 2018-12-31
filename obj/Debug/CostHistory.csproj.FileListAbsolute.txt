@@ -36,3 +36,12 @@ C:\Users\logon\Documents\Syncfusion ASP.NET\Projects\CostHistory\bin\Syncfusion.
 C:\Users\logon\Documents\Syncfusion ASP.NET\Projects\CostHistory\obj\Debug\CostHistory.csprojAssemblyReference.cache
 C:\Users\logon\Documents\Syncfusion ASP.NET\Projects\CostHistory\obj\Debug\CostHistory.csproj.CoreCompileInputs.cache
 C:\Users\logon\Documents\Syncfusion ASP.NET\Projects\CostHistory\obj\Debug\CostHistory.csproj.CopyComplete
+C:\Users\logon\Documents\Syncfusion ASP.NET\Projects\CostHistory\bin\Mono.Security.dll
+C:\Users\logon\Documents\Syncfusion ASP.NET\Projects\CostHistory\bin\Npgsql.dll
+C:\Users\logon\Documents\Syncfusion ASP.NET\Projects\CostHistory\bin\Npgsql.xml
+C:\Users\logon\Documents\Syncfusion ASP.NET\Projects\CostHistory\bin\de\Npgsql.resources.dll
+C:\Users\logon\Documents\Syncfusion ASP.NET\Projects\CostHistory\bin\es\Npgsql.resources.dll
+C:\Users\logon\Documents\Syncfusion ASP.NET\Projects\CostHistory\bin\fi\Npgsql.resources.dll
+C:\Users\logon\Documents\Syncfusion ASP.NET\Projects\CostHistory\bin\fr\Npgsql.resources.dll
+C:\Users\logon\Documents\Syncfusion ASP.NET\Projects\CostHistory\bin\ja\Npgsql.resources.dll
+C:\Users\logon\Documents\Syncfusion ASP.NET\Projects\CostHistory\bin\zh-CN\Npgsql.resources.dll

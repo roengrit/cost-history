@@ -51,7 +51,7 @@
             <asp:TextBox runat="server" ID="txtUsername" class="form-control small" type="text" name='username'></asp:TextBox>
         </div>
         <div class="form-group col-md-5">
-            <asp:Button runat="server" class="btn btn-success btn-block" ID="btnFind"></asp:Button>
+            <asp:Button runat="server" class="btn btn-success btn-block" ID="btnFind" OnClick="btnFind_Click"></asp:Button>
         </div>
         <div class="form-group col-md-3">
             <img width="24" height="24" onclick="hide()" style="margin-top: 8px; cursor: pointer;" src="Content/svg/si-glyph-arrow-up.svg" />
@@ -74,18 +74,15 @@
                 AllowSelection="True" Selectiontype="Single"
                 runat="server">
                 <Columns>
-                    <ej:Column Field="OrderID" HeaderText="Order ID" IsPrimaryKey="true" IsFrozen="True" TextAlign="Right" Width="90" />
-                    <ej:Column Field="CustomerID" HeaderText="Customer ID" IsFrozen="True" Width="150" />
-                    <ej:Column Field="EmployeeID" HeaderText="Employee ID" HeaderTemplateID="#employeeTemplate" TextAlign="Right" Width="110" />
-                    <ej:Column Field="Freight" HeaderText="Freight" TextAlign="Right" Width="90" Format="{0:C}" />
-                    <ej:Column Field="OrderDate" HeaderText="Order Date" Width="100" HeaderTemplateID="#dateTemplate" TextAlign="Right" Format="{0:dd/MM/yyyy}" />
-                    <ej:Column Field="ShipCity" HeaderText="Ship City" Width="100" />
+                    <ej:Column Field="item_code" HeaderText="item_code" IsPrimaryKey="true" IsFrozen="True" TextAlign="Right" Width="100" />
+                    <ej:Column Field="item_name" HeaderText="item_name" IsFrozen="True" Width="150" />
+                    <ej:Column Field="unit_name" HeaderText="unit_name" TextAlign="Right" Width="110" />
+                    <ej:Column Field="qty" HeaderText="qty" TextAlign="Right" Width="90" Format="{0:C}" />
+                    <ej:Column Field="price" HeaderText="price" Width="100" TextAlign="Right" Format="{0:C}"   />
+                    <ej:Column Field="sum_amount" HeaderText="sum_amount" Width="100" TextAlign="Right" Format="{0:C}"   />
                 </Columns>
                 <ClientSideEvents ToolbarClick="onToolBarClick" />
-                <ToolbarSettings ShowToolbar="True" ToolbarItems="excelExport, add,update">
-                    <CustomToolbarItem>
-                        <ej:CustomToolbarItem TemplateID="#Refresh" />
-                    </CustomToolbarItem>
+                <ToolbarSettings ShowToolbar="True" ToolbarItems="update">
                 </ToolbarSettings>
                 <ScrollSettings Height="100%" Width="100%" FrozenRows="1"></ScrollSettings>
                 <EditSettings AllowEditing="True" AllowAdding="True" AllowDeleting="True"></EditSettings>
@@ -101,12 +98,6 @@
                 }
             });
         </script>
-    <script id="dateTemplate" type="text/x-jsrender">
-        <span class="date headericon"></span>Order Date
-    </script>
-    <script id="employeeTemplate" type="text/x-jsrender">
-        <span class="headericon employee"></span>Emp ID
-    </script>
     <style type="text/css">
         .headericon {
             background-image: url(../Content/Images/Grid/icons-gray.png);

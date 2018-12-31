@@ -1,8 +1,10 @@
-﻿using Syncfusion.EJ.Export;
+﻿using CostHistory.Models;
+using Syncfusion.EJ.Export;
 using Syncfusion.XlsIO;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -12,71 +14,72 @@ namespace CostHistory
 {
     public partial class Work : System.Web.UI.Page
     {
-        public static List<Orders> order = null;
+        DataTable dt = new DataTable("Order");
         protected void Page_Load(object sender, EventArgs e)
         {
+            this.Grid1.Columns[0].HeaderText = "รหัส";
+            this.Grid1.Columns[0].HeaderText = "ชื่อ";
+            this.Grid1.Columns[0].HeaderText = "หน่วย";
+
             dtStartDate.Value = DateTime.Now;
             dtEndDate.Value = DateTime.Now;
             this.AutoComplete.DataSource = new LocalData().GetDataItems().ToList();
             btnFind.Text = Resources.Resource.signin;
-            BindDataSource();
         }
+
         private void BindDataSource()
         {
-            order = new List<Orders>();
-            int orderId = 1000;
-            int empId = 0;
-            for (int i = 1; i < 20; i++)
-            {
-                order.Add(new Orders(orderId + 1, "VINET", empId + 1, 32.38, new DateTime(2014, 12, 25), "Reims"));
-                order.Add(new Orders(orderId + 2, "TOMSP", empId + 2, 11.61, new DateTime(2014, 12, 21), "Munster"));
-                order.Add(new Orders(orderId + 3, "ANATER", empId + 3, 45.34, new DateTime(2014, 10, 18), "Berlin"));
-                order.Add(new Orders(orderId + 4, "ALFKI", empId + 4, 37.28, new DateTime(2014, 11, 23), "Mexico"));
-                order.Add(new Orders(orderId + 5, "FRGYE", empId + 5, 67.00, new DateTime(2014, 05, 05), "Colchester"));
-                order.Add(new Orders(orderId + 6, "JGERT", empId + 6, 23.32, new DateTime(2014, 10, 18), "Newyork"));
-                orderId += 1;
-                empId += 1;
-            }
-            this.Grid1.DataSource = order;
+            this.Grid1.DataSource = (DataTable)Session["SqlDataSource"]; 
             this.Grid1.DataBind();
         }
-        [Serializable]
-        public class Orders
-        {
-            public Orders()
-            {
-            }
-            public Orders(int orderId, string customerId, int empId, double freight, DateTime orderDate, string shipCity)
-            {
-                this.OrderID = orderId;
-                this.CustomerID = customerId;
-                this.EmployeeID = empId;
-                this.Freight = freight;
-                this.OrderDate = orderDate;
-                this.ShipCity = shipCity;
-            }
-            public int OrderID { get; set; }
-            public string CustomerID { get; set; }
-            public int EmployeeID { get; set; }
-            public double Freight { get; set; }
-            public DateTime OrderDate { get; set; }
-            public string ShipCity { get; set; }
-        }
+
         protected void FlatGrid_ServerExcelExporting(object sender, Syncfusion.JavaScript.Web.GridEventArgs e)
         {
             ExcelExport exp = new ExcelExport();
             exp.Export(Grid1.Model, (IEnumerable)Grid1.DataSource, "Export.xlsx", ExcelVersion.Excel2010, true, true, "flat-lime");
         }
+
         protected void FlatGrid_ServerWordExporting(object sender, Syncfusion.JavaScript.Web.GridEventArgs e)
         {
             WordExport exp = new WordExport();
             exp.Export(Grid1.Model, (IEnumerable)Grid1.DataSource, "Export.docx", true, true, "flat-lime");
         }
+
         protected void FlatGrid_ServerPdfExporting(object sender, Syncfusion.JavaScript.Web.GridEventArgs e)
         {
             PdfExport exp = new PdfExport();
             exp.Export(Grid1.Model, (IEnumerable)Grid1.DataSource, "Export.pdf", true, true, "flat-lime");
         }
+
+        protected void btnFind_Click(object sender, EventArgs e)
+        {
+            dt = Connection.GetData(@"select       
+                                          ic_trans.doc_date,
+                                          ic_trans.doc_no,
+                                          ap_supplier.code,
+                                          ap_supplier.name_1 as suplier_name,
+                                          ic_trans_detail.item_code, 
+                                          ic_trans_detail.item_name, 
+                                          ic_trans_detail.unit_code, 
+                                          ic_unit.name_1 as unit_name,
+                                          ic_trans_detail.qty, 
+                                          ic_trans_detail.price, 
+                                          ic_trans_detail.discount, 
+										  ic_trans_detail.discount_amount,
+                                          ic_trans_detail.total_vat_value,
+                                          ic_trans_detail.sum_of_cost, 
+                                          ic_trans_detail.sum_amount		                                     
+                                    from  ic_trans_detail join  
+                                          ic_trans on ic_trans_detail.doc_no = ic_trans.doc_no left join  
+                                          ap_supplier on ic_trans.cust_code = ap_supplier.code left join 
+                                          ic_unit on ic_trans_detail.unit_code = ic_unit.code 
+                                    where ic_trans.trans_flag = 6 and ic_trans_detail.last_status = 0
+                                    limit 100
+                                    ");
+            Session["SqlDataSource"] = dt;
+            this.BindDataSource();
+        }
+
     }
 
 
