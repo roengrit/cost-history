@@ -54,21 +54,25 @@ namespace CostHistory
         protected void btnFind_Click(object sender, EventArgs e)
         {
             dt = Connection.GetData(@"select       
+                                          ic_trans.trans_flag,
                                           ic_trans.doc_date,
                                           ic_trans.doc_no,
-                                          ap_supplier.code,
+                                          ic_trans.cust_code,
                                           ap_supplier.name_1 as suplier_name,
                                           ic_trans_detail.item_code, 
                                           ic_trans_detail.item_name, 
                                           ic_trans_detail.unit_code, 
                                           ic_unit.name_1 as unit_name,
                                           ic_trans_detail.qty, 
-                                          ic_trans_detail.price, 
+                                          ic_trans_detail.price,  
                                           ic_trans_detail.discount, 
+                                          ic_trans_detail.price_exclude_vat,
+                                          ic_trans_detail.price_base,
 										  ic_trans_detail.discount_amount,
-                                          ic_trans_detail.total_vat_value,
+										  ic_trans_detail.price - (ic_trans_detail.discount_amount / ic_trans_detail.qty) as price_after_discount,
+										  ic_trans_detail.total_vat_value,										  
                                           ic_trans_detail.sum_of_cost, 
-                                          ic_trans_detail.sum_amount		                                     
+                                          ic_trans_detail.sum_amount	                                     
                                     from  ic_trans_detail join  
                                           ic_trans on ic_trans_detail.doc_no = ic_trans.doc_no left join  
                                           ap_supplier on ic_trans.cust_code = ap_supplier.code left join 
