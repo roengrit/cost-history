@@ -141,4 +141,40 @@
   <data name="work" xml:space="preserve">
     <value>Work</value>
   </data>
+  <data name="discount" xml:space="preserve">
+    <value>Discount</value>
+  </data>
+  <data name="doc_date" xml:space="preserve">
+    <value>Doc Date</value>
+  </data>
+  <data name="doc_no" xml:space="preserve">
+    <value>Doc NO.</value>
+  </data>
+  <data name="item_code" xml:space="preserve">
+    <value>Item Code</value>
+  </data>
+  <data name="item_name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="price" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="price_after_discount" xml:space="preserve">
+    <value>Price After Discount</value>
+  </data>
+  <data name="qty" xml:space="preserve">
+    <value>Qty</value>
+  </data>
+  <data name="receipt_price" xml:space="preserve">
+    <value>Receipt Price</value>
+  </data>
+  <data name="supplier_name" xml:space="preserve">
+    <value>Supplier</value>
+  </data>
+  <data name="total_vat_value" xml:space="preserve">
+    <value>Total Vat Value</value>
+  </data>
+  <data name="unit_name" xml:space="preserve">
+    <value>Unit Name</value>
+  </data>
 </root>

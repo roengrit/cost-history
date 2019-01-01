@@ -141,4 +141,40 @@
   <data name="work" xml:space="preserve">
     <value>ງານ</value>
   </data>
+  <data name="discount" xml:space="preserve">
+    <value>ສ່ວນລົດ</value>
+  </data>
+  <data name="doc_date" xml:space="preserve">
+    <value>ວັນທີ່</value>
+  </data>
+  <data name="doc_no" xml:space="preserve">
+    <value>ເອກສານເລກທີ່</value>
+  </data>
+  <data name="item_code" xml:space="preserve">
+    <value>ລະຫັດ</value>
+  </data>
+  <data name="item_name" xml:space="preserve">
+    <value>ຊື່ສິນຄ້າ</value>
+  </data>
+  <data name="price" xml:space="preserve">
+    <value>ລາຄາ</value>
+  </data>
+  <data name="price_after_discount" xml:space="preserve">
+    <value>ລາຄາຫຼັງຈາກການສ່ວນລົດ</value>
+  </data>
+  <data name="qty" xml:space="preserve">
+    <value>ຈໍານວນ</value>
+  </data>
+  <data name="receipt_price" xml:space="preserve">
+    <value>ລາຄາຮັບ</value>
+  </data>
+  <data name="supplier_name" xml:space="preserve">
+    <value>ຊື່​ຜູ້​ຜະ​ລິດ</value>
+  </data>
+  <data name="total_vat_value" xml:space="preserve">
+    <value>ມູນຄ່າເພີ່ມພາສີ</value>
+  </data>
+  <data name="unit_name" xml:space="preserve">
+    <value>ຊື່ຫນ່ວຍ</value>
+  </data>
 </root>

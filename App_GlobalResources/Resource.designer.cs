@@ -19,7 +19,7 @@ namespace Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option or rebuild the Visual Studio project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Web.Application.StronglyTypedResourceProxyBuilder", "10.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Web.Application.StronglyTypedResourceProxyBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resource {
@@ -61,6 +61,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Discount.
+        /// </summary>
+        internal static string discount {
+            get {
+                return ResourceManager.GetString("discount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Doc Date.
+        /// </summary>
+        internal static string doc_date {
+            get {
+                return ResourceManager.GetString("doc_date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Doc NO..
+        /// </summary>
+        internal static string doc_no {
+            get {
+                return ResourceManager.GetString("doc_no", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
         internal static string home {
@@ -70,11 +97,65 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Item Code.
+        /// </summary>
+        internal static string item_code {
+            get {
+                return ResourceManager.GetString("item_code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        internal static string item_name {
+            get {
+                return ResourceManager.GetString("item_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to English.
         /// </summary>
         internal static string lang {
             get {
                 return ResourceManager.GetString("lang", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Price.
+        /// </summary>
+        internal static string price {
+            get {
+                return ResourceManager.GetString("price", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Price After Discount.
+        /// </summary>
+        internal static string price_after_discount {
+            get {
+                return ResourceManager.GetString("price_after_discount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Qty.
+        /// </summary>
+        internal static string qty {
+            get {
+                return ResourceManager.GetString("qty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Receipt Price.
+        /// </summary>
+        internal static string receipt_price {
+            get {
+                return ResourceManager.GetString("receipt_price", resourceCulture);
             }
         }
         
@@ -120,6 +201,33 @@ namespace Resources {
         internal static string signout {
             get {
                 return ResourceManager.GetString("signout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Supplier.
+        /// </summary>
+        internal static string supplier_name {
+            get {
+                return ResourceManager.GetString("supplier_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total Vat Value.
+        /// </summary>
+        internal static string total_vat_value {
+            get {
+                return ResourceManager.GetString("total_vat_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unit Name.
+        /// </summary>
+        internal static string unit_name {
+            get {
+                return ResourceManager.GetString("unit_name", resourceCulture);
             }
         }
         

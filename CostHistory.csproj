@@ -1185,6 +1185,7 @@
     <Content Include="Content\svg\si-glyph-zip.svg" />
     <Content Include="Content\svg\si-glyph-zoom-in.svg" />
     <Content Include="Content\svg\si-glyph-zoom-out.svg" />
+    <Content Include="Sql\table_create.txt" />
     <Content Include="Work.aspx" />
   </ItemGroup>
   <ItemGroup>

@@ -29,7 +29,7 @@
     <br />
     <div class="form-row col-md-12">
         <h4 style="margin-bottom: 15px; float: left">Search</h4>
-        <img width="24" height="24" id="down-click"  onclick="show()" style="margin-top: 8px; cursor: pointer;display:none; float: right; margin-left: 10px" src="Content/svg/si-glyph-arrow-down.svg" />
+        <img width="24" height="24" id="down-click" onclick="show()" style="margin-top: 8px; cursor: pointer; display: none; float: right; margin-left: 10px" src="Content/svg/si-glyph-arrow-down.svg" />
     </div>
 
     <div class="form-row col-md-6" id="find">
@@ -57,77 +57,105 @@
             <img width="24" height="24" onclick="hide()" style="margin-top: 8px; cursor: pointer;" src="Content/svg/si-glyph-arrow-up.svg" />
         </div>
 
+            <div class="form-group col-md-5">
+            <asp:Button runat="server" class="btn btn-success btn-block" ID="btnSave" OnClick="btnSave_Click"></asp:Button>
+        </div>
+
     </div>
 
     <br />
 
     <div id="ControlRegion" style="width: 100%">
         <div class="frame " style="width: 100%">
+          
             <ej:Grid ID="Grid1" AllowSorting="true"
-                EnableResponsiveRow="true"
-                IsResponsive="true"
                 AllowScrolling="True" AllowResizing="True"
                 EnableRowHover="true" AllowTextWrap="True" AllowCellMerging="false"
                 AllowReordering="false" Locale="en-US" AllowMultiSorting="false"
                 OnServerWordExporting="FlatGrid_ServerWordExporting" OnServerPdfExporting="FlatGrid_ServerPdfExporting"
                 OnServerExcelExporting="FlatGrid_ServerExcelExporting"
                 AllowSelection="True" Selectiontype="Single"
+                OnServerEditRow="EditEvents_ServerEditRow"
+                OnServerBatchEditRow="Grid1_ServerBatchEditRow"
                 runat="server">
+                <ClientSideEvents ActionComplete="complete" EndAdd="endAdd" EndDelete="endDelete" EndEdit="endEdit" DataBound="onDataBound" />
+              
                 <Columns>
-                    <ej:Column Field="item_code" HeaderText="item_code" IsPrimaryKey="true" IsFrozen="True" TextAlign="Right" Width="100" />
-                    <ej:Column Field="item_name" HeaderText="item_name" IsFrozen="True" Width="150" />
-                    <ej:Column Field="unit_name" HeaderText="unit_name" TextAlign="Right" Width="110" />
-                    <ej:Column Field="qty" HeaderText="qty" TextAlign="Right" Width="90" Format="{0:C}" />
-                    <ej:Column Field="price" HeaderText="price" Width="100" TextAlign="Right" Format="{0:C}"   />
-                    <ej:Column Field="sum_amount" HeaderText="sum_amount" Width="100" TextAlign="Right" Format="{0:C}"   />
+                    <ej:Column Field="key" IsPrimaryKey="true" Visible="false" HeaderText="doc_no" AllowEditing="false" TextAlign="Left" />
+                    <ej:Column Field="doc_date" HeaderText="doc_date" AllowEditing="false" TextAlign="Left" Format="{0:dd/MM/yyyy}" />
+                    <ej:Column Field="doc_no" HeaderText="doc_no" AllowEditing="false" TextAlign="Left" />
+                    <ej:Column Field="suplier_name" HeaderText="suplier_name" AllowEditing="false" TextAlign="Left" />
+                    <ej:Column Field="item_code" HeaderText="item_code" AllowEditing="false" TextAlign="Left" />
+                    <ej:Column Field="item_name" HeaderText="item_name" AllowEditing="false" />
+                    <ej:Column Field="unit_name" HeaderText="unit_name" AllowEditing="false" TextAlign="Right" />
+                    <ej:Column Field="qty" HeaderText="qty" TextAlign="Right" AllowEditing="false" Format="{0:C}" />
+                    <ej:Column Field="price" HeaderText="price" AllowEditing="false" TextAlign="Right" Format="{0:C}" />
+                    <ej:Column Field="discount" HeaderText="discount" AllowEditing="false" TextAlign="Right" Format="{0:C}" />
+                    <ej:Column Field="price_after_discount" HeaderText="price_after_discount" AllowEditing="false" TextAlign="Right" Format="{0:C}" />
+                    <ej:Column Field="total_vat_value" HeaderText="total_vat_value" AllowEditing="false" TextAlign="Right" Format="{0:C}" />
+                    <ej:Column Field="receipt_price" HeaderText="receipt_price" AllowEditing="false" TextAlign="Right" Format="{0:C}" />
+                    <ej:Column Field="free_value" HeaderText="free_value" AllowEditing="true" TextAlign="Right" Format="{0:C}" />
+                    <ej:Column Field="other_discount" HeaderText="other_discount" TextAlign="Right" Format="{0:C}" />
                 </Columns>
-                <ClientSideEvents ToolbarClick="onToolBarClick" />
-                <ToolbarSettings ShowToolbar="True" ToolbarItems="update">
+
+                <ClientSideEvents CellSave="cellSave" ActionComplete="complete" CellEdit="cellEdit" EndAdd="endAdd" EndDelete="endDelete" EndEdit="endEdit" DataBound="onDataBound" />
+                <ToolbarSettings ShowToolbar="True"  ToolbarItems="update">
                 </ToolbarSettings>
-                <ScrollSettings Height="100%" Width="100%" FrozenRows="1"></ScrollSettings>
-                <EditSettings AllowEditing="True" AllowAdding="True" AllowDeleting="True"></EditSettings>
-                <SelectionSettings EnableToggle="true" />
+                <ScrollSettings Height="100%" Width="100%"></ScrollSettings>
+                <EditSettings AllowEditing="True" AllowAdding="True" EditMode="Batch" AllowDeleting="True"></EditSettings>
             </ej:Grid>
         </div>
         <script type="text/javascript">
-            $(function () {
-            });
-            $(document).on("keydown", function (e) {
-                if (e.altKey && e.keyCode === 74) {
-                    $("#Grid1").focus();
-                }
-            });
+
+            function cellSave(args) {
+                 var gridObj = $("#" + this._id).data("ejGrid"); 
+                 var rowIndex = gridObj.selectedRowsIndexes; 
+                if (args.columnName == "other_discount") {  
+                    gridObj.setCellValue(rowIndex, "free_value", 66666); 
+                } 
+            }
+
+            function cellEdit(args) {
+                
+            }
+            function endAdd(args) {
+                console.log('A');
+            }
+            function endDelete(args) {
+                
+            }
+            function endEdit(args) {
+                console.log(args);
+               
+            }
+            function onDataBound(args) {
+
+            }
+            function complete(args) {
+                console.log("A")
+            }
         </script>
-    <style type="text/css">
-        .headericon {
-            background-image: url(../Content/Images/Grid/icons-gray.png);
-            padding-left: 20px;
-        }
+        <style type="text/css">
+            .headericon {
+                background-image: url(../Content/Images/Grid/icons-gray.png);
+                padding-left: 20px;
+            }
 
-        .date {
-            background-position: -3px -86px;
-        }
+            .date {
+                background-position: -3px -86px;
+            }
 
-        .employee {
-            background-position: -82px -62px;
-        }
-    </style>
-    <style type="text/css" class="cssStyles">
-        .refresh {
-            background-position: -76px 3px;
-            background-image: url("../Content/Images/Grid/icons-gray.png");
-        }
-    </style>
-    <script id="Refresh" type="text/x-jsrender">
-        <a class="e-toolbaricons refresh" />
-    </script>
-    <script type="text/javascript">
-        function onToolBarClick(sender, args) {
-            var tbarObj = $(sender.target);
-            if (tbarObj.hasClass("refresh"))
-                this.refreshContent();
-        }
-    </script>
+            .employee {
+                background-position: -82px -62px;
+            }
+        </style>
+        <style type="text/css" class="cssStyles">
+            .refresh {
+                background-position: -76px 3px;
+                background-image: url("../Content/Images/Grid/icons-gray.png");
+            }
+        </style>
+
     </div>
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="ScriptSection" runat="server">
