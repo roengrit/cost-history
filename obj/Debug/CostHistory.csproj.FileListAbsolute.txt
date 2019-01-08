@@ -33,7 +33,6 @@ C:\Users\logon\Documents\Syncfusion ASP.NET\Projects\CostHistory\bin\Syncfusion.
 C:\Users\logon\Documents\Syncfusion ASP.NET\Projects\CostHistory\bin\Syncfusion.DocIO.Base.xml
 C:\Users\logon\Documents\Syncfusion ASP.NET\Projects\CostHistory\bin\Syncfusion.ExcelToPDFConverter.Base.xml
 C:\Users\logon\Documents\Syncfusion ASP.NET\Projects\CostHistory\bin\Syncfusion.OfficeChart.Base.xml
-C:\Users\logon\Documents\Syncfusion ASP.NET\Projects\CostHistory\obj\Debug\CostHistory.csprojAssemblyReference.cache
 C:\Users\logon\Documents\Syncfusion ASP.NET\Projects\CostHistory\obj\Debug\CostHistory.csproj.CoreCompileInputs.cache
 C:\Users\logon\Documents\Syncfusion ASP.NET\Projects\CostHistory\obj\Debug\CostHistory.csproj.CopyComplete
 C:\Users\logon\Documents\Syncfusion ASP.NET\Projects\CostHistory\bin\Mono.Security.dll
@@ -45,3 +44,4 @@ C:\Users\logon\Documents\Syncfusion ASP.NET\Projects\CostHistory\bin\fi\Npgsql.r
 C:\Users\logon\Documents\Syncfusion ASP.NET\Projects\CostHistory\bin\fr\Npgsql.resources.dll
 C:\Users\logon\Documents\Syncfusion ASP.NET\Projects\CostHistory\bin\ja\Npgsql.resources.dll
 C:\Users\logon\Documents\Syncfusion ASP.NET\Projects\CostHistory\bin\zh-CN\Npgsql.resources.dll
+C:\Users\logon\Documents\Syncfusion ASP.NET\Projects\CostHistory\obj\Debug\CostHistory.csprojAssemblyReference.cache

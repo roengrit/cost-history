@@ -1261,6 +1261,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Connection.cs" />
+    <Compile Include="Models\ProductSave.cs" />
     <Compile Include="Work.aspx.cs">
       <DependentUpon>Work.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

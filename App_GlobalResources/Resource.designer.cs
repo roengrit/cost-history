@@ -88,11 +88,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string free_value {
+            get {
+                return ResourceManager.GetString("free_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
         internal static string home {
             get {
                 return ResourceManager.GetString("home", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string import_value {
+            get {
+                return ResourceManager.GetString("import_value", resourceCulture);
             }
         }
         
@@ -124,6 +142,42 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string net_cost_price {
+            get {
+                return ResourceManager.GetString("net_cost_price", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string net_price_thai {
+            get {
+                return ResourceManager.GetString("net_price_thai", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string other_discount {
+            get {
+                return ResourceManager.GetString("other_discount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string other_value {
+            get {
+                return ResourceManager.GetString("other_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Price.
         /// </summary>
         internal static string price {
@@ -142,6 +196,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string price_after_pro {
+            get {
+                return ResourceManager.GetString("price_after_pro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Qty.
         /// </summary>
         internal static string qty {
@@ -151,11 +214,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string rebate {
+            get {
+                return ResourceManager.GetString("rebate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Receipt Price.
         /// </summary>
         internal static string receipt_price {
             get {
                 return ResourceManager.GetString("receipt_price", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string remark {
+            get {
+                return ResourceManager.GetString("remark", resourceCulture);
             }
         }
         
@@ -223,11 +304,47 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string transport_bkk_nk {
+            get {
+                return ResourceManager.GetString("transport_bkk_nk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string transport_bkk_vt {
+            get {
+                return ResourceManager.GetString("transport_bkk_vt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string transport_nk_vt {
+            get {
+                return ResourceManager.GetString("transport_nk_vt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unit Name.
         /// </summary>
         internal static string unit_name {
             get {
                 return ResourceManager.GetString("unit_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string vat_add {
+            get {
+                return ResourceManager.GetString("vat_add", resourceCulture);
             }
         }
         

@@ -40,13 +40,13 @@ namespace CostHistory {
         protected global::Syncfusion.JavaScript.Web.DatePicker dtEndDate;
         
         /// <summary>
-        /// txtUsername control.
+        /// txtDocNo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtUsername;
+        protected global::System.Web.UI.WebControls.TextBox txtDocNo;
         
         /// <summary>
         /// btnFind control.
@@ -56,15 +56,6 @@ namespace CostHistory {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnFind;
-        
-        /// <summary>
-        /// btnSave control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSave;
         
         /// <summary>
         /// Grid1 control.

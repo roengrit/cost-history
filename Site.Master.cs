@@ -21,14 +21,10 @@ namespace CostHistory
         protected void Page_Load(object sender, EventArgs e)
         {
             
-                string language = "en-us";
+                string language = "lo-LA";
 
                 //Detect User's Language.
-                if (Request.UserLanguages != null)
-                {
-                    //Set the Language.
-                    language = Request.UserLanguages[0];
-                }
+               
 
                 if (Session["lang"] != null) {
                     language = Session["lang"].ToString();

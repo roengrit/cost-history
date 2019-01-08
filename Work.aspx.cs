@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
+using System.Web.Script.Serialization;
 using System.Web.Script.Services;
 using System.Web.Services;
 using System.Web.UI;
@@ -17,7 +18,8 @@ namespace CostHistory
 {
     public partial class Work : System.Web.UI.Page
     {
-      
+        DataTable dt = new DataTable("Order");
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!this.IsPostBack)
@@ -40,18 +42,43 @@ namespace CostHistory
         private void GridHeader()
         {
             this.Grid1.AllowTextWrap = false;
-            this.Grid1.Columns[0].HeaderText = Resources.Resource.doc_date;
-            this.Grid1.Columns[1].HeaderText = Resources.Resource.doc_no;
-            this.Grid1.Columns[2].HeaderText = Resources.Resource.supplier_name;
-            this.Grid1.Columns[3].HeaderText = Resources.Resource.item_code;
-            this.Grid1.Columns[4].HeaderText = Resources.Resource.item_name;
-            this.Grid1.Columns[5].HeaderText = Resources.Resource.unit_name;
-            this.Grid1.Columns[6].HeaderText = Resources.Resource.qty;
-            this.Grid1.Columns[7].HeaderText = Resources.Resource.price;
-            this.Grid1.Columns[8].HeaderText = Resources.Resource.discount;
-            this.Grid1.Columns[9].HeaderText = Resources.Resource.price_after_discount;
-            this.Grid1.Columns[10].HeaderText = Resources.Resource.total_vat_value;
-            this.Grid1.Columns[11].HeaderText = Resources.Resource.receipt_price;
+ 
+               //     <ej:Column Field="transport_nk_vt" HeaderText="transport_nk_vt"  />
+               //     <ej:Column Field="transport_bkk_vt" HeaderText="transport_bkk_vt"  />                    
+               //     <ej:Column Field="transport_value" HeaderText="transport_value"  />
+               //     <ej:Column Field="import_value" HeaderText="import_value"  />
+               //     <ej:Column Field="other_value" HeaderText="other_value"  />
+               //     <ej:Column Field="remark" HeaderText="remark"  />
+               //     <ej:Column Field="net_cost_price" HeaderText="net_cost_price" TextAlign="Right" Format="{0:C}" />
+
+            this.Grid1.Columns[0].HeaderText = "";
+            this.Grid1.Columns[1].HeaderText = Resources.Resource.doc_date;
+            this.Grid1.Columns[2].HeaderText = Resources.Resource.doc_no;
+            this.Grid1.Columns[3].HeaderText = Resources.Resource.supplier_name;
+            this.Grid1.Columns[4].HeaderText = Resources.Resource.item_code;
+            this.Grid1.Columns[5].HeaderText = Resources.Resource.item_name;
+            this.Grid1.Columns[6].HeaderText = Resources.Resource.unit_name;
+            this.Grid1.Columns[7].HeaderText = Resources.Resource.qty;
+            this.Grid1.Columns[8].HeaderText = Resources.Resource.price;
+            this.Grid1.Columns[9].HeaderText = Resources.Resource.discount;
+            this.Grid1.Columns[10].HeaderText = Resources.Resource.price_after_discount;
+            this.Grid1.Columns[11].HeaderText = Resources.Resource.total_vat_value;
+            this.Grid1.Columns[12].HeaderText = Resources.Resource.receipt_price;
+            this.Grid1.Columns[13].HeaderText = Resources.Resource.free_value;
+            this.Grid1.Columns[14].HeaderText = Resources.Resource.other_discount;
+            this.Grid1.Columns[15].HeaderText = Resources.Resource.rebate;
+            this.Grid1.Columns[16].HeaderText = Resources.Resource.price_after_pro;
+            this.Grid1.Columns[17].HeaderText = Resources.Resource.vat_add;
+            this.Grid1.Columns[18].HeaderText = Resources.Resource.transport_bkk_nk;
+            this.Grid1.Columns[19].HeaderText = Resources.Resource.net_price_thai;
+            this.Grid1.Columns[20].HeaderText = Resources.Resource.transport_nk_vt;
+            this.Grid1.Columns[21].HeaderText = Resources.Resource.transport_bkk_vt;
+            //this.Grid1.Columns[22].HeaderText = Resources.Resource.transport_value;
+            this.Grid1.Columns[22].HeaderText = Resources.Resource.import_value;
+            this.Grid1.Columns[23].HeaderText = Resources.Resource.other_value;
+            this.Grid1.Columns[24].HeaderText = Resources.Resource.remark;
+            this.Grid1.Columns[25].HeaderText = Resources.Resource.net_cost_price;
+
         }
 
         protected void FlatGrid_ServerExcelExporting(object sender, Syncfusion.JavaScript.Web.GridEventArgs e)
@@ -80,7 +107,7 @@ namespace CostHistory
                                           ic_trans.doc_date,
                                           ic_trans.doc_no,
                                           ic_trans.cust_code,
-                                          ap_supplier.name_1 as suplier_name,
+                                          ap_supplier.name_1 as supplier_name,
                                           ic_trans_detail.item_code, 
                                           ic_trans_detail.item_name, 
                                           ic_trans_detail.unit_code, 
@@ -95,7 +122,9 @@ namespace CostHistory
 										  ic_trans_detail.total_vat_value,		
                                           ic_trans_detail.price - (ic_trans_detail.discount_amount / ic_trans_detail.qty) +  ic_trans_detail.total_vat_value as receipt_price,
                                           ic_trans_detail.sum_of_cost, 
-                                          cost_history.*	                                     
+                                          cost_history.*,
+                                          0.0  as net_price_thai,
+                                          0.0  as net_cost_price
                                     from  ic_trans_detail join  
                                           ic_trans on ic_trans_detail.doc_no = ic_trans.doc_no left join  
                                           ap_supplier on ic_trans.cust_code = ap_supplier.code left join 
@@ -103,13 +132,29 @@ namespace CostHistory
                                           cost_history on ic_trans_detail.doc_no = cost_history.doc_no 
                                                        and ic_trans_detail.item_code = cost_history.item_code 
                                                        and ic_trans_detail.unit_code = cost_history.unit_code                                          
-                                    where ic_trans.trans_flag = 6 and ic_trans_detail.last_status = 0 and ic_trans_detail.qty <> 0 limit 100";
+                                    where ic_trans.trans_flag = 6 and ic_trans_detail.last_status = 0 and ic_trans_detail.qty <> 0 ";
 
-            if (dtStartDate.Value == null)
+            if (dtStartDate.Value.HasValue  && !dtEndDate.Value.HasValue)
             {
-
+                sql += " and ic_trans.doc_date = '" + (dtStartDate.Value.Value.ToString("yyyy-MM-dd")) + "'";
             }
-            DataTable dt = new DataTable("Order");
+            else if (!dtStartDate.Value.HasValue   && dtEndDate.Value.HasValue)
+            {
+                sql += " and ic_trans.doc_date = '" + (dtEndDate.Value.Value.ToString("yyyy-MM-dd")) + "'";
+            }
+            else if (dtStartDate.Value.HasValue   && dtEndDate.Value .HasValue)
+            {
+                sql += " and ic_trans.doc_date between '" + (dtStartDate.Value.Value.ToString("yyyy-MM-dd")) + "' and '" + (dtEndDate.Value.Value.ToString("yyyy-MM-dd")) + "'";
+            }
+
+            if (!string.IsNullOrEmpty(AutoComplete.Value)) {
+                sql += " and ic_trans.cust_code = '" + AutoComplete.Value + "'";
+            }
+
+            if (!string.IsNullOrEmpty(txtDocNo.Text.Trim()))
+            {
+                sql += " and ic_trans.doc_no = '" + txtDocNo.Text.Trim() + "'";
+            }
 
             dt = Connection.GetData(sql);
             Session["SqlDataSource"] = dt;
@@ -127,9 +172,30 @@ namespace CostHistory
             
         }
 
+
+        [WebMethod]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public static void Insert(object data)
+        {
+            
+        }
+        [WebMethod]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public static void Update(object items)
+        {
+            List<ProductSave> lstItems = new JavaScriptSerializer().ConvertToType<List<ProductSave>>(items);
+
+        }
+        [WebMethod]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public static void Delete(int key)
+        {
+            
+        }
+
         protected void Grid1_ServerBatchEditRow(object sender, GridEventArgs e)
         {
-             
+            var d = e.Arguments.Values;
         }
 
         protected void btnSave_Click(object sender, EventArgs e)

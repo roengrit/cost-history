@@ -126,8 +126,14 @@
   <data name="doc_no" xml:space="preserve">
     <value>เลขที่เอกสาร</value>
   </data>
+  <data name="free_value" xml:space="preserve">
+    <value>แถม</value>
+  </data>
   <data name="home" xml:space="preserve">
     <value>หน้าหลัก</value>
+  </data>
+  <data name="import_value" xml:space="preserve">
+    <value>ค่านำเข้าสินค้า</value>
   </data>
   <data name="item_code" xml:space="preserve">
     <value>รหัสสินค้า</value>
@@ -138,17 +144,38 @@
   <data name="lang" xml:space="preserve">
     <value>ไทย</value>
   </data>
+  <data name="net_cost_price" xml:space="preserve">
+    <value>ต้นทุนสุทธิ</value>
+  </data>
+  <data name="net_price_thai" xml:space="preserve">
+    <value>ราคาสุทธิ (ไทย)</value>
+  </data>
+  <data name="other_discount" xml:space="preserve">
+    <value>ส่วนลดอื่นๆ</value>
+  </data>
+  <data name="other_value" xml:space="preserve">
+    <value>ค่าใช้จ่ายอื่นๆ</value>
+  </data>
   <data name="price" xml:space="preserve">
     <value>ราคา</value>
   </data>
   <data name="price_after_discount" xml:space="preserve">
     <value>ราคาหลักหักส่วนลด</value>
   </data>
+  <data name="price_after_pro" xml:space="preserve">
+    <value>ราคาหลังจากโปร</value>
+  </data>
   <data name="qty" xml:space="preserve">
     <value>จำนวน</value>
   </data>
+  <data name="rebate" xml:space="preserve">
+    <value>เงินคืน</value>
+  </data>
   <data name="receipt_price" xml:space="preserve">
     <value>ราคาใบเสร็จ</value>
+  </data>
+  <data name="remark" xml:space="preserve">
+    <value>หมายเหตุ</value>
   </data>
   <data name="report" xml:space="preserve">
     <value>รายงาน</value>
@@ -171,8 +198,20 @@
   <data name="total_vat_value" xml:space="preserve">
     <value>ภาษี</value>
   </data>
+  <data name="transport_bkk_nk" xml:space="preserve">
+    <value>Transport: BKK-NK</value>
+  </data>
+  <data name="transport_bkk_vt" xml:space="preserve">
+    <value>Transport:BKK-VT</value>
+  </data>
+  <data name="transport_nk_vt" xml:space="preserve">
+    <value>Transport:NK-VT</value>
+  </data>
   <data name="unit_name" xml:space="preserve">
     <value>หน่วย</value>
+  </data>
+  <data name="vat_add" xml:space="preserve">
+    <value>ภาษี10%</value>
   </data>
   <data name="work" xml:space="preserve">
     <value>งาน</value>

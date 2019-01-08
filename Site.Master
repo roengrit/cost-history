@@ -70,7 +70,7 @@
                                 role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <%= Resources.Resource.lang %>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#" onclick="javascript:switchlang('en-us')">English</a>
+                              <%--  <a class="dropdown-item" href="#" onclick="javascript:switchlang('en-us')">English</a>--%>
                                 <a class="dropdown-item" href="#" onclick="javascript:switchlang('th-TH')">Thai</a>
                                 <a class="dropdown-item" href="#" onclick="javascript:switchlang('lo-LA')">Laos</a>
                             </div>
