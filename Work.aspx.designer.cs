@@ -13,6 +13,24 @@ namespace CostHistory {
     public partial class Work {
         
         /// <summary>
+        /// lblSearch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSearch;
+        
+        /// <summary>
+        /// lblSupplier control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSupplier;
+        
+        /// <summary>
         /// AutoComplete control.
         /// </summary>
         /// <remarks>
@@ -20,6 +38,15 @@ namespace CostHistory {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Syncfusion.JavaScript.Web.Autocomplete AutoComplete;
+        
+        /// <summary>
+        /// lblForm control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblForm;
         
         /// <summary>
         /// dtStartDate control.
@@ -31,6 +58,15 @@ namespace CostHistory {
         protected global::Syncfusion.JavaScript.Web.DatePicker dtStartDate;
         
         /// <summary>
+        /// lblTo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTo;
+        
+        /// <summary>
         /// dtEndDate control.
         /// </summary>
         /// <remarks>
@@ -38,6 +74,15 @@ namespace CostHistory {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Syncfusion.JavaScript.Web.DatePicker dtEndDate;
+        
+        /// <summary>
+        /// lblDocNo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDocNo;
         
         /// <summary>
         /// txtDocNo control.
@@ -56,6 +101,15 @@ namespace CostHistory {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnFind;
+        
+        /// <summary>
+        /// lblSave control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSave;
         
         /// <summary>
         /// Grid1 control.

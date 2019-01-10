@@ -1,4 +1,5 @@
 ﻿using CostHistory.Models;
+using Newtonsoft.Json;
 using Syncfusion.EJ.Export;
 using Syncfusion.JavaScript.Web;
 using Syncfusion.XlsIO;
@@ -6,7 +7,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.Script.Services;
@@ -22,14 +25,65 @@ namespace CostHistory
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                Response.Redirect(ResolveUrl("~/Default.aspx"));
+            }
+
+            string language = "lo-LA";
+
+            //Detect User's Language.
+
+
+            if (Session["lang"] != null)
+            {
+                language = Session["lang"].ToString();
+            }
+
+
+            //Check if PostBack is caused by Language DropDownList.
+            if (Request.Form["__EVENTTARGET"] != null)
+            {
+                //Set the Language.
+                if (Request.Form["lang"] != null)
+                    if (Request.Form["lang"] != "")
+                    {
+                        language = Request.Form["__EVENTTARGET"];
+                        Session["lang"] = language;
+                    }
+            }
+
+            //Set the Culture.
+            Thread.CurrentThread.CurrentCulture = new CultureInfo(language);
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(language);
+
             if (!this.IsPostBack)
             {
-                this.GridHeader();
                 dtStartDate.Value = null;
                 dtEndDate.Value = null;
-                this.AutoComplete.DataSource = new LocalData().GetDataItems().ToList();
-                btnFind.Text = Resources.Resource.signin;
+                Session["Supplier"] = new LocalData().GetDataItems().ToList();
+                this.AutoComplete.DataSource = (List<LocalData>)Session["Supplier"];
+#if DEBUG
+                txtDocNo.Text = "PO1811020004";
+#endif
             }
+            else {
+                if (Session["Supplier"] != null)
+                    this.AutoComplete.DataSource = (List<LocalData>)Session["Supplier"];
+                else
+                {
+                    Session["Supplier"] = new LocalData().GetDataItems().ToList();
+                    this.AutoComplete.DataSource = (List<LocalData>)Session["Supplier"];
+                }
+                }
+                this.GridHeader();
+            btnFind.Text = Resources.Resource.find;
+            lblSearch.Text = Resources.Resource.find;
+            lblSupplier.Text = Resources.Resource.supplier_name;
+            lblForm.Text = Resources.Resource.from;
+            lblTo.Text = Resources.Resource.to;
+            lblDocNo.Text = Resources.Resource.doc_no;
+            lblSave.Text = Resources.Resource.save;
         }
 
         private void BindDataSource()
@@ -42,14 +96,6 @@ namespace CostHistory
         private void GridHeader()
         {
             this.Grid1.AllowTextWrap = false;
- 
-               //     <ej:Column Field="transport_nk_vt" HeaderText="transport_nk_vt"  />
-               //     <ej:Column Field="transport_bkk_vt" HeaderText="transport_bkk_vt"  />                    
-               //     <ej:Column Field="transport_value" HeaderText="transport_value"  />
-               //     <ej:Column Field="import_value" HeaderText="import_value"  />
-               //     <ej:Column Field="other_value" HeaderText="other_value"  />
-               //     <ej:Column Field="remark" HeaderText="remark"  />
-               //     <ej:Column Field="net_cost_price" HeaderText="net_cost_price" TextAlign="Right" Format="{0:C}" />
 
             this.Grid1.Columns[0].HeaderText = "";
             this.Grid1.Columns[1].HeaderText = Resources.Resource.doc_date;
@@ -101,8 +147,7 @@ namespace CostHistory
 
         protected void btnFind_Click(object sender, EventArgs e)
         {
-            var sql = @"select       
-                                          concat(ic_trans.doc_no,'#', ic_trans_detail.item_code , '#' ,  ic_trans_detail.unit_code ) as key ,              
+            var sql = @"select            concat(ic_trans.doc_no,'#', ic_trans_detail.item_code , '#' ,  ic_trans_detail.unit_code ) as key ,              
                                           ic_trans.trans_flag,
                                           ic_trans.doc_date,
                                           ic_trans.doc_no,
@@ -122,6 +167,8 @@ namespace CostHistory
 										  ic_trans_detail.total_vat_value,		
                                           ic_trans_detail.price - (ic_trans_detail.discount_amount / ic_trans_detail.qty) +  ic_trans_detail.total_vat_value as receipt_price,
                                           ic_trans_detail.sum_of_cost, 
+                                          coalesce( (select sum(qty) from ic_trans_detail as sub where sub.doc_no = ic_trans_detail.doc_no and sub.item_code = ic_trans_detail.item_code and sub.unit_code = ic_trans_detail.unit_code and sub.price <= 0 and sub.last_status = 0),0) as free_value,
+                                          0.0 as other_discount,
                                           cost_history.*,
                                           0.0  as net_price_thai,
                                           0.0  as net_cost_price
@@ -132,23 +179,24 @@ namespace CostHistory
                                           cost_history on ic_trans_detail.doc_no = cost_history.doc_no 
                                                        and ic_trans_detail.item_code = cost_history.item_code 
                                                        and ic_trans_detail.unit_code = cost_history.unit_code                                          
-                                    where ic_trans.trans_flag = 6 and ic_trans_detail.last_status = 0 and ic_trans_detail.qty <> 0 ";
+                                    where ic_trans.trans_flag = 6 and ic_trans_detail.last_status = 0 and ic_trans_detail.qty <> 0 and ic_trans_detail.price <> 0 ";
 
-            if (dtStartDate.Value.HasValue  && !dtEndDate.Value.HasValue)
+            if (dtStartDate.Value.HasValue && !dtEndDate.Value.HasValue)
             {
                 sql += " and ic_trans.doc_date = '" + (dtStartDate.Value.Value.ToString("yyyy-MM-dd")) + "'";
             }
-            else if (!dtStartDate.Value.HasValue   && dtEndDate.Value.HasValue)
+            else if (!dtStartDate.Value.HasValue && dtEndDate.Value.HasValue)
             {
                 sql += " and ic_trans.doc_date = '" + (dtEndDate.Value.Value.ToString("yyyy-MM-dd")) + "'";
             }
-            else if (dtStartDate.Value.HasValue   && dtEndDate.Value .HasValue)
+            else if (dtStartDate.Value.HasValue && dtEndDate.Value.HasValue)
             {
                 sql += " and ic_trans.doc_date between '" + (dtStartDate.Value.Value.ToString("yyyy-MM-dd")) + "' and '" + (dtEndDate.Value.Value.ToString("yyyy-MM-dd")) + "'";
             }
 
-            if (!string.IsNullOrEmpty(AutoComplete.Value)) {
-                sql += " and ic_trans.cust_code = '" + AutoComplete.Value + "'";
+            if (!string.IsNullOrEmpty(AutoComplete.SelectValueByKey))
+            {
+                sql += " and ic_trans.cust_code = '" + AutoComplete.SelectValueByKey.Replace(",","") + "'";
             }
 
             if (!string.IsNullOrEmpty(txtDocNo.Text.Trim()))
@@ -157,6 +205,47 @@ namespace CostHistory
             }
 
             dt = Connection.GetData(sql);
+            foreach (DataRow item in dt.Rows)
+            {
+                item["other_discount"] = Convert.ToDecimal((Convert.ToDecimal(item["receipt_price"]) - (
+                    (Convert.ToDecimal(item["qty"]) * Convert.ToDecimal(item["receipt_price"])) /
+                    (Convert.ToDecimal(item["qty"]) + Convert.ToDecimal(item["free_value"]))
+                    )).ToString("N2"));
+
+                item["price_after_discount"] = Convert.ToDecimal(Convert.ToDecimal(item["price_after_discount"]).ToString("N2"));
+                item["receipt_price"] = Convert.ToDecimal(Convert.ToDecimal(item["receipt_price"]).ToString("N2"));
+
+                if (item["doc_no1"].ToString() != "")
+                {
+                    var rebate_number = 0.0m;
+                    if (!string.IsNullOrEmpty(item["rebate"].ToString()))
+                    {
+                        if (item["rebate"].ToString().Contains("%"))
+                        {
+                            rebate_number = (Convert.ToDecimal(item["price_after_discount"]) * -1) * (Convert.ToDecimal(item["rebate"].ToString().Replace("%", "")) / 100);
+                        }
+                        else if (!string.IsNullOrEmpty(item["rebate"].ToString()))
+                        {
+                            rebate_number = Convert.ToDecimal(item["rebate"].ToString().Replace("%", "")) * -1;
+                        }
+                        else
+                        {
+                            rebate_number = 0;
+                        }
+                        item["rebate_number"] = Convert.ToDecimal(rebate_number.ToString("N2"));
+                    }
+
+                    item["price_after_pro"] = Convert.ToDecimal(item["receipt_price"]) + Convert.ToDecimal(item["rebate_number"]) + Convert.ToDecimal(item["other_discount"]);
+                    item["net_price_thai"] = Convert.ToDecimal(item["receipt_price"]) + Convert.ToDecimal(item["vat_add"]) + Convert.ToDecimal(item["transport_bkk_nk"]) + Convert.ToDecimal(item["rebate_number"]);
+                    item["net_cost_price"] = Convert.ToDecimal(item["transport_nk_vt"]) + Convert.ToDecimal(item["transport_bkk_vt"]) + Convert.ToDecimal(item["import_value"]) + Convert.ToDecimal(item["net_price_thai"]);
+                }
+                else {
+                    item["price_after_discount"] = Convert.ToDecimal(Convert.ToDecimal(item["receipt_price"]).ToString("N2"));
+                    item["net_price_thai"] = Convert.ToDecimal(Convert.ToDecimal(item["receipt_price"]).ToString("N2"));
+                    item["net_cost_price"] = Convert.ToDecimal(Convert.ToDecimal(item["receipt_price"]).ToString("N2"));
+                }
+
+            }
             Session["SqlDataSource"] = dt;
             this.BindDataSource();
         }
@@ -166,31 +255,76 @@ namespace CostHistory
             EditAction(e.EventType, e.Arguments["data"]);
         }
 
-
         protected void EditAction(string eventType, object record)
         {
-            
-        }
 
+        }
 
         [WebMethod]
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
         public static void Insert(object data)
         {
-            
+
         }
         [WebMethod]
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-        public static void Update(object items)
+        public static string Update(object items, string user)
         {
             List<ProductSave> lstItems = new JavaScriptSerializer().ConvertToType<List<ProductSave>>(items);
+            List<string> commans = new List<string>();
+            foreach (var item in lstItems)
+            {
+                item.vat_add = string.IsNullOrEmpty(item.vat_add) ? "0" : item.vat_add;
+                item.transport_bkk_nk = string.IsNullOrEmpty(item.transport_bkk_nk) ? "0" : item.transport_bkk_nk;
+                item.transport_nk_vt = string.IsNullOrEmpty(item.transport_nk_vt) ? "0" : item.transport_nk_vt;
+                item.transport_bkk_vt = string.IsNullOrEmpty(item.transport_bkk_vt) ? "0" : item.transport_bkk_vt;
+                item.import_value = string.IsNullOrEmpty(item.import_value) ? "0" : item.import_value;
+                item.other_value = string.IsNullOrEmpty(item.other_value) ? "0" : item.other_value;
+                item.remark = string.IsNullOrEmpty(item.remark) ? "0" : item.remark;
 
+                commans.Add(
+                            @"INSERT INTO cost_history(doc_no,item_code,unit_code,rebate,vat_add,transport_bkk_nk,transport_nk_vt,transport_bkk_vt,import_value,other_value,remark,creator_code)
+                              VALUES('@doc_no@','@item_code@','@unit_code@','@rebate@',@vat_add@,@transport_bkk_nk@,@transport_nk_vt@,@transport_bkk_vt@,@import_value@,@other_value@,'@remark@','@creator_code@')
+                              ON CONFLICT ON CONSTRAINT  cost_history_un  DO 
+                              UPDATE SET rebate = '@rebate@' ,
+                                                      vat_add = @vat_add@,
+                                                      transport_bkk_nk = @transport_bkk_nk@ ,
+                                                      transport_nk_vt = @transport_nk_vt@ ,
+                                                      transport_bkk_vt = @transport_bkk_vt@, 
+                                                      import_value = @import_value@ ,
+                                                      other_value = @other_value@ ,
+                                                      remark = '@remark@' ,
+                                                      last_editor = '@creator_code@' , 
+                                                      last_edit_date_time = now()"
+                                                     .Replace("@doc_no@", item.doc_no)
+                                                     .Replace("@item_code@", item.item_code)
+                                                     .Replace("@unit_code@", item.unit_code)
+                                                     .Replace("@rebate@", item.rebate)
+                                                     .Replace("@vat_add@", item.vat_add.ToString())
+                                                     .Replace("@transport_bkk_nk@", item.transport_bkk_nk.ToString())
+                                                     .Replace("@transport_nk_vt@", item.transport_nk_vt.ToString())
+                                                     .Replace("@transport_bkk_vt@", item.transport_bkk_vt.ToString())
+                                                     .Replace("@import_value@", item.import_value.ToString())
+                                                     .Replace("@other_value@", item.other_value.ToString())
+                                                     .Replace("@remark@", item.remark.ToString())
+                                                     .Replace("@creator_code@", user)
+                           );
+            }
+            try
+            {
+                Connection.ExecuteSqlTransaction(commans);
+            }
+            catch (Exception ex)
+            {
+                return JsonConvert.SerializeObject(new { success = false, message = ex.Message });
+            }
+            return JsonConvert.SerializeObject(new { success = true, message = "" });
         }
         [WebMethod]
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
         public static void Delete(int key)
         {
-            
+
         }
 
         protected void Grid1_ServerBatchEditRow(object sender, GridEventArgs e)
@@ -200,7 +334,7 @@ namespace CostHistory
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-           
+
         }
     }
 
@@ -208,7 +342,7 @@ namespace CostHistory
     public class LocalData
     {
 
-        public LocalData(int _id, string _text)
+        public LocalData(string _id, string _text)
 
         {
 
@@ -220,7 +354,7 @@ namespace CostHistory
 
         public LocalData() { }
 
-        public int ID
+        public string ID
 
         {
 
@@ -245,65 +379,72 @@ namespace CostHistory
 
             List<LocalData> data = new List<LocalData>();
 
-            data.Add(new LocalData(1, "Audi S6"));
+            var dataTable = Connection.GetData("select name_1,code  from ap_supplier");
 
-            data.Add(new LocalData(2, "Austin-Healey"));
+            foreach (DataRow item in dataTable.Rows)
+            {
+                data.Add(new LocalData(item["code"].ToString(),  item["name_1"].ToString() ));
+            }
 
-            data.Add(new LocalData(3, "Aston Martin"));
+            //
 
-            data.Add(new LocalData(4, "BMW 7"));
+            //data.Add(new LocalData(2, "Austin-Healey"));
 
-            data.Add(new LocalData(5, "Bentley Mulsanne"));
+            //data.Add(new LocalData(3, "Aston Martin"));
 
-            data.Add(new LocalData(6, "Bugatti Veyron"));
+            //data.Add(new LocalData(4, "BMW 7"));
 
-            data.Add(new LocalData(7, "Chevrolet Camaro"));
+            //data.Add(new LocalData(5, "Bentley Mulsanne"));
 
-            data.Add(new LocalData(8, "Cadillac "));
+            //data.Add(new LocalData(6, "Bugatti Veyron"));
 
-            data.Add(new LocalData(9, "Honda S2000"));
+            //data.Add(new LocalData(7, "Chevrolet Camaro"));
 
-            data.Add(new LocalData(10, "Hyundai Santro"));
+            //data.Add(new LocalData(8, "Cadillac "));
 
-            data.Add(new LocalData(11, "Mercedes-Benz "));
+            //data.Add(new LocalData(9, "Honda S2000"));
 
-            data.Add(new LocalData(12, "Mercury Coupe"));
+            //data.Add(new LocalData(10, "Hyundai Santro"));
 
-            data.Add(new LocalData(13, "Maruti Alto 800"));
+            //data.Add(new LocalData(11, "Mercedes-Benz "));
 
-            data.Add(new LocalData(14, "Volkswagen Shirako"));
+            //data.Add(new LocalData(12, "Mercury Coupe"));
 
-            data.Add(new LocalData(15, "Lotus Esprit "));
+            //data.Add(new LocalData(13, "Maruti Alto 800"));
 
-            data.Add(new LocalData(16, "Lamborghini Diablo"));
+            //data.Add(new LocalData(14, "Volkswagen Shirako"));
 
-            data.Add(new LocalData(17, "Nissan Qashqai "));
+            //data.Add(new LocalData(15, "Lotus Esprit "));
 
-            data.Add(new LocalData(18, "Oldsmobile S98 "));
+            //data.Add(new LocalData(16, "Lamborghini Diablo"));
 
-            data.Add(new LocalData(19, "Opel Superboss "));
+            //data.Add(new LocalData(17, "Nissan Qashqai "));
 
-            data.Add(new LocalData(20, "Scion SRS/SC/SD "));
+            //data.Add(new LocalData(18, "Oldsmobile S98 "));
 
-            data.Add(new LocalData(21, "Saab Sportcombi "));
+            //data.Add(new LocalData(19, "Opel Superboss "));
 
-            data.Add(new LocalData(22, "Subaru Sambar "));
+            //data.Add(new LocalData(20, "Scion SRS/SC/SD "));
 
-            data.Add(new LocalData(23, "Suzuki Swift "));
+            //data.Add(new LocalData(21, "Saab Sportcombi "));
 
-            data.Add(new LocalData(24, "Volvo P1800 "));
+            //data.Add(new LocalData(22, "Subaru Sambar "));
 
-            data.Add(new LocalData(25, "Kia Sedona EX "));
+            //data.Add(new LocalData(23, "Suzuki Swift "));
 
-            data.Add(new LocalData(26, "Koenigsegg Agera "));
+            //data.Add(new LocalData(24, "Volvo P1800 "));
 
-            data.Add(new LocalData(27, "Ford Boss 302 "));
+            //data.Add(new LocalData(25, "Kia Sedona EX "));
 
-            data.Add(new LocalData(28, "Ferrari 360 "));
+            //data.Add(new LocalData(26, "Koenigsegg Agera "));
 
-            data.Add(new LocalData(29, "Ford Thunderbird "));
+            //data.Add(new LocalData(27, "Ford Boss 302 "));
 
-            data.Add(new LocalData(30, "Alfa Romeo"));
+            //data.Add(new LocalData(28, "Ferrari 360 "));
+
+            //data.Add(new LocalData(29, "Ford Thunderbird "));
+
+            //data.Add(new LocalData(30, "Alfa Romeo"));
 
             return data;
         }

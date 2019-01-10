@@ -216,4 +216,16 @@
   <data name="net_cost_price" xml:space="preserve">
     <value>ລາຄາທຶນສຸດທິ</value>
   </data>
+  <data name="find" xml:space="preserve">
+    <value>ຄົ້ນຫາ</value>
+  </data>
+  <data name="save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="from" xml:space="preserve">
+    <value>ຈາກ</value>
+  </data>
+  <data name="to" xml:space="preserve">
+    <value>ໄປສູ່</value>
+  </data>
 </root>

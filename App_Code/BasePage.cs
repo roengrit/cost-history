@@ -4,28 +4,32 @@ using System.Globalization;
 /// <summary>
 /// Summary description for BasePage
 /// </summary>
-public class BasePage : System.Web.UI.Page
+
+namespace CostHistory
 {
-    protected override void InitializeCulture()
+    public class BasePage : System.Web.UI.Page
     {
-        string language = "en-us";
-
-        //Detect User's Language.
-        if (Request.UserLanguages != null)
+        protected override void InitializeCulture()
         {
-            //Set the Language.
-            language = Request.UserLanguages[0];
-        }
+            string language = "en-us";
 
-        //Check if PostBack is caused by Language DropDownList.
-        if (Request.Form["__EVENTTARGET"] != null && Request.Form["__EVENTTARGET"].Contains("ddlLanguages"))
-        {
-            //Set the Language.
-            language = Request.Form[Request.Form["__EVENTTARGET"]];
-        }
+            //Detect User's Language.
+            if (Request.UserLanguages != null)
+            {
+                //Set the Language.
+                language = Request.UserLanguages[0];
+            }
 
-        //Set the Culture.
-        Thread.CurrentThread.CurrentCulture = new CultureInfo(language);
-        Thread.CurrentThread.CurrentUICulture = new CultureInfo(language);
+            //Check if PostBack is caused by Language DropDownList.
+            if (Request.Form["__EVENTTARGET"] != null && Request.Form["__EVENTTARGET"].Contains("ddlLanguages"))
+            {
+                //Set the Language.
+                language = Request.Form[Request.Form["__EVENTTARGET"]];
+            }
+
+            //Set the Culture.
+            Thread.CurrentThread.CurrentCulture = new CultureInfo(language);
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(language);
+        }
     }
 }

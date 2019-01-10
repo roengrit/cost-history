@@ -126,6 +126,9 @@
   <data name="doc_no" xml:space="preserve">
     <value>เลขที่เอกสาร</value>
   </data>
+  <data name="find" xml:space="preserve">
+    <value>ค้นหา</value>
+  </data>
   <data name="free_value" xml:space="preserve">
     <value>แถม</value>
   </data>
@@ -215,5 +218,14 @@
   </data>
   <data name="work" xml:space="preserve">
     <value>งาน</value>
+  </data>
+  <data name="save" xml:space="preserve">
+    <value>บันทึก</value>
+  </data>
+  <data name="from" xml:space="preserve">
+    <value>จาก</value>
+  </data>
+  <data name="to" xml:space="preserve">
+    <value>ถึง</value>
   </data>
 </root>
