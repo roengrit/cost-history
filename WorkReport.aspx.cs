@@ -129,8 +129,14 @@ namespace CostHistory
 
         protected void FlatGrid_ServerExcelExporting(object sender, Syncfusion.JavaScript.Web.GridEventArgs e)
         {
-            ExcelExport exp = new ExcelExport();
-            exp.Export(Grid1.Model, (DataTable)Session["SqlDataSource"], "Export.xlsx", ExcelVersion.Excel2010, true, true, "flat-lime");
+            if (Session["can_export"] != null)
+            {
+                if (Session["can_export"].ToString() == "1")
+                {
+                    ExcelExport exp = new ExcelExport();
+                    exp.Export(Grid1.Model, (DataTable)Session["SqlDataSource"], "Export.xlsx", ExcelVersion.Excel2010, true, true, "flat-lime");
+                }
+            }
         }
 
         protected void FlatGrid_ServerWordExporting(object sender, Syncfusion.JavaScript.Web.GridEventArgs e)

@@ -5,8 +5,8 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="StyleSection" runat="server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
-    <script src='<%= Page.ResolveClientUrl("~/Scripts/ej/i18n/ej.culture.en-US.min.js")%>' type="text/javascript"></script>
-    <script src='<%= Page.ResolveClientUrl("~/Scripts/ej/l10n/ej.localetexts.en-US.min.js")%>' type="text/javascript"></script>
+    <script src='<%= ResolveUrl("~/Scripts/ej/i18n/ej.culture.en-US.min.js")%>' type="text/javascript"></script>
+    <script src='<%= ResolveUrl("~/Scripts/ej/l10n/ej.localetexts.en-US.min.js")%>' type="text/javascript"></script>
     <script>
         if (localStorage.getItem("hide") == "1") {
             hide();
@@ -32,7 +32,9 @@
         <h4 style="margin-bottom: 15px; float: left">
             <asp:Label ID="lblSearch" runat="server" Text="Search"></asp:Label> 
         </h4>
-        <img width="24" height="24" id="down-click" onclick="show()" style="margin-top: 8px; cursor: pointer; display: none; float: right; margin-left: 10px" src="Content/svg/si-glyph-arrow-down.svg" />
+        <img width="24" height="24" id="down-click" onclick="show()" style="margin-top: 8px; cursor: pointer; display: none; float: right; margin-left: 10px"
+            src="<%=ResolveUrl("Content/svg/si-glyph-arrow-down.svg")%>"
+             />
     </div>
 
     <div class="form-row col-md-6" id="find">
@@ -59,7 +61,7 @@
             <asp:Button runat="server" class="btn btn-primary btn-block" ID="btnFind" OnClick="btnFind_Click"></asp:Button>
         </div>
         <div class="form-group col-md-3">
-            <img width="24" height="24" onclick="hide()" style="margin-top: 8px; cursor: pointer;" src="Content/svg/si-glyph-arrow-up.svg" />
+            <img width="24" height="24" onclick="hide()" style="margin-top: 8px; cursor: pointer;" src="<%=ResolveUrl("Content/svg/si-glyph-arrow-up.svg")%>" />
         </div>
 
       <asp:Label ID="lblSave" Visible="false" runat="server" Text="Search"></asp:Label>
