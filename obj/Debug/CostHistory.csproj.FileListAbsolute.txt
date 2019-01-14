@@ -45,3 +45,4 @@ C:\Users\logon\Documents\Syncfusion ASP.NET\Projects\CostHistory\obj\Debug\CostH
 C:\Users\logon\Documents\Syncfusion ASP.NET\Projects\CostHistory\obj\Debug\CostHistory.csproj.CopyComplete
 C:\Users\logon\Documents\Syncfusion ASP.NET\Projects\CostHistory\obj\Debug\CostHistory.dll
 C:\Users\logon\Documents\Syncfusion ASP.NET\Projects\CostHistory\obj\Debug\CostHistory.pdb
+C:\Users\logon\Documents\Syncfusion ASP.NET\Projects\CostHistory\obj\Debug\CostHistory.csprojAssemblyReference.cache

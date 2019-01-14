@@ -42,7 +42,7 @@
             <label>
                 <asp:Label ID="lblSupplier" runat="server" Text="Search"></asp:Label> 
             </label>
-            <ej:Autocomplete ID="AutoComplete" Width="100%" runat="server" DataTextField="Text"  MultiSelectMode="None"  DataUniqueKeyField="ID" />
+            <ej:Autocomplete ID="AutoComplete"   FilterType="Contains" Width="100%" runat="server" DataTextField="Text"  MultiSelectMode="None"  DataUniqueKeyField="ID" />
         </div>
 
         <div class="form-group col-md-6">

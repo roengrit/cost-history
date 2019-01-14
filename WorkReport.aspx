@@ -40,7 +40,7 @@
             <label>
                 <asp:Label ID="lblSupplier" runat="server" Text="Search"></asp:Label> 
             </label>
-            <ej:Autocomplete ID="AutoComplete" Width="100%" runat="server" DataTextField="Text"  MultiSelectMode="None"  DataUniqueKeyField="ID" />
+            <ej:Autocomplete ID="AutoComplete"   FilterType="Contains" Width="100%" runat="server" DataTextField="Text"  MultiSelectMode="None"  DataUniqueKeyField="ID" />
         </div>
 
         <div class="form-group col-md-6">
@@ -54,6 +54,12 @@
         <div class="form-group col-md-12">
             <label> <asp:Label ID="lblDocNo" runat="server" Text="Search"></asp:Label> </label>
             <asp:TextBox runat="server" ID="txtDocNo" class="form-control small" type="text" name='username'></asp:TextBox>
+        </div>
+        <div class="form-group col-md-12">
+            <label>
+                <asp:Label ID="Label1" runat="server" Text="Search"></asp:Label> 
+            </label>
+            <ej:Autocomplete ID="AutoCompleteItem" Width="100%" runat="server" DataTextField="Text"   FilterType="Contains"  MultiSelectMode="None"  DataUniqueKeyField="ID" />
         </div>
         <div class="form-group col-md-5">
             <asp:Button runat="server" class="btn btn-primary btn-block" ID="btnFind" OnClick="btnFind_Click"></asp:Button>

@@ -34,14 +34,11 @@ namespace CostHistory
 
             //Detect User's Language.
 
-
             if (Session["lang"] != null)
             {
                 language = Session["lang"].ToString();
             }
 
-
-            //Check if PostBack is caused by Language DropDownList.
             if (Request.Form["__EVENTTARGET"] != null)
             {
                 //Set the Language.
@@ -63,11 +60,13 @@ namespace CostHistory
                 dtEndDate.Value = null;
                 Session["Supplier"] = new LocalData().GetDataItems().ToList();
                 this.AutoComplete.DataSource = (List<LocalData>)Session["Supplier"];
-#if DEBUG
-                //txtDocNo.Text = "PO1811020004";
-#endif
+
+                Session["inventory"] = new LocalData().GetInventoryItems().ToList();
+                this.AutoCompleteItem.DataSource = (List<LocalData>)Session["inventory"];
+ 
             }
-            else {
+            else
+            {
                 if (Session["Supplier"] != null)
                     this.AutoComplete.DataSource = (List<LocalData>)Session["Supplier"];
                 else
@@ -75,8 +74,17 @@ namespace CostHistory
                     Session["Supplier"] = new LocalData().GetDataItems().ToList();
                     this.AutoComplete.DataSource = (List<LocalData>)Session["Supplier"];
                 }
+
+                if (Session["inventory"] != null)
+                    this.AutoCompleteItem.DataSource = (List<LocalData>)Session["inventory"];
+                else
+                {
+                    Session["inventory"] = new LocalData().GetInventoryItems().ToList();
+                    this.AutoCompleteItem.DataSource = (List<LocalData>)Session["inventory"];
                 }
-                this.GridHeader();
+            }
+
+            this.GridHeader();
             btnFind.Text = Resources.Resource.find;
             lblSearch.Text = Resources.Resource.find;
             lblSupplier.Text = Resources.Resource.supplier_name;
@@ -84,6 +92,8 @@ namespace CostHistory
             lblTo.Text = Resources.Resource.to;
             lblDocNo.Text = Resources.Resource.doc_no;
             lblSave.Text = Resources.Resource.save;
+            Label1.Text = Resources.Resource.item_name;
+
         }
 
         private void BindDataSource()
@@ -179,6 +189,7 @@ namespace CostHistory
                                           0.0  as net_price_thai,
                                           0.0  as net_cost_price
                                     from  ic_trans_detail join  
+                                          ic_inventory on ic_trans_detail.item_code = ic_inventory.code  join 
                                           ic_trans on ic_trans_detail.doc_no = ic_trans.doc_no left join  
                                           ap_supplier on ic_trans.cust_code = ap_supplier.code left join 
                                           ic_unit on ic_trans_detail.unit_code = ic_unit.code left join
@@ -202,13 +213,20 @@ namespace CostHistory
 
             if (!string.IsNullOrEmpty(AutoComplete.SelectValueByKey))
             {
-                sql += " and ic_trans.cust_code = '" + AutoComplete.SelectValueByKey.Replace(",","") + "'";
+                sql += " and ic_trans.cust_code = '" + AutoComplete.SelectValueByKey.Replace(",", "") + "'";
             }
 
             if (!string.IsNullOrEmpty(txtDocNo.Text.Trim()))
             {
                 sql += " and ic_trans.doc_no = '" + txtDocNo.Text.Trim() + "'";
             }
+
+
+            if (!string.IsNullOrEmpty(AutoCompleteItem.SelectValueByKey))
+            {
+                sql += " and ic_inventory.code = '" + AutoCompleteItem.SelectValueByKey.Replace(",", "") + "'";
+            }
+
 
             dt = Connection.GetData(sql);
             foreach (DataRow item in dt.Rows)
@@ -245,7 +263,8 @@ namespace CostHistory
                     item["net_price_thai"] = Convert.ToDecimal(item["receipt_price"]) + Convert.ToDecimal(item["vat_add"]) + Convert.ToDecimal(item["transport_bkk_nk"]) + Convert.ToDecimal(item["rebate_number"]);
                     item["net_cost_price"] = Convert.ToDecimal(item["transport_nk_vt"]) + Convert.ToDecimal(item["transport_bkk_vt"]) + Convert.ToDecimal(item["import_value"]) + Convert.ToDecimal(item["net_price_thai"]);
                 }
-                else {
+                else
+                {
                     item["price_after_discount"] = Convert.ToDecimal(Convert.ToDecimal(item["receipt_price"]).ToString("N2"));
                     item["net_price_thai"] = Convert.ToDecimal(Convert.ToDecimal(item["receipt_price"]).ToString("N2"));
                     item["net_cost_price"] = Convert.ToDecimal(Convert.ToDecimal(item["receipt_price"]).ToString("N2"));
@@ -256,14 +275,13 @@ namespace CostHistory
             this.BindDataSource();
         }
 
-     
-
         [WebMethod]
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
         public static void Insert(object data)
         {
 
         }
+
         [WebMethod]
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
         public static string Update(object items, string user)
@@ -318,6 +336,7 @@ namespace CostHistory
             }
             return JsonConvert.SerializeObject(new { success = true, message = "" });
         }
+
         [WebMethod]
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
         public static void Delete(int key)
@@ -325,7 +344,6 @@ namespace CostHistory
 
         }
 
-       
     }
-      
+
 }

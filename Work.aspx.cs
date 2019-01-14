@@ -449,5 +449,21 @@ namespace CostHistory
             return data;
         }
 
+        public List<LocalData> GetInventoryItems()
+        {
+
+            List<LocalData> data = new List<LocalData>();
+
+            var dataTable = Connection.GetData("select name_1,code  from ic_inventory");
+
+            foreach (DataRow item in dataTable.Rows)
+            {
+                data.Add(new LocalData(item["code"].ToString(), item["name_1"].ToString()));
+            }
+
+
+            return data;
+        }
+
     }
 }
