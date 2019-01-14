@@ -127,8 +127,17 @@
                         <NumericEditOptions DecimalPlaces="2"></NumericEditOptions>
                     </ej:Column> 
                     <ej:Column Field="remark" HeaderText="remark"  />
+
                     <ej:Column Field="net_cost_price" HeaderText="net_cost_price" AllowEditing="false" TextAlign="Right"   />
-                     <ej:Column Field="rebate_number"  Visible="false" HeaderText="" AllowEditing="false" TextAlign="Left" />
+
+                    <ej:Column Field="rebate_number"  Visible="false" HeaderText="" AllowEditing="false" TextAlign="Left" />
+                    <ej:Column Field="price_normal" HeaderText="price_normal" AllowEditing="false" TextAlign="Right"   />
+                    <ej:Column Field="price_member" HeaderText="price_member" AllowEditing="false" TextAlign="Right"   />
+                    <ej:Column Field="price_1" HeaderText="price_1" AllowEditing="false" TextAlign="Right"   />
+                    <ej:Column Field="price_2" HeaderText="price_2" AllowEditing="false" TextAlign="Right"   />
+                    <ej:Column Field="price_3" HeaderText="price_3" AllowEditing="false" TextAlign="Right"   />
+                    <ej:Column Field="profit" HeaderText="profit" AllowEditing="false" TextAlign="Right"   />
+                     
                 </Columns>
 
                 <ClientSideEvents CellSave="cellSave"  ActionComplete="complete" CellEdit="cellEdit" EndAdd="endAdd"  BeforeBatchSave="endEdit" EndDelete="endDelete" EndEdit="endEdit" DataBound="onDataBound" />

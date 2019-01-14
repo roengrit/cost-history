@@ -40,7 +40,7 @@
             <label>
                 <asp:Label ID="lblSupplier" runat="server" Text="Search"></asp:Label> 
             </label>
-            <ej:Autocomplete ID="AutoComplete" Width="100%" runat="server" DataTextField="Text"  MultiSelectMode="None"  DataUniqueKeyField="ID" />
+            <ej:Autocomplete ID="AutoComplete"   FilterType="Contains" Width="100%" runat="server" DataTextField="Text"  MultiSelectMode="None"  DataUniqueKeyField="ID" />
         </div>
 
         <div class="form-group col-md-6">
@@ -54,6 +54,12 @@
         <div class="form-group col-md-12">
             <label> <asp:Label ID="lblDocNo" runat="server" Text="Search"></asp:Label> </label>
             <asp:TextBox runat="server" ID="txtDocNo" class="form-control small" type="text" name='username'></asp:TextBox>
+        </div>
+        <div class="form-group col-md-12">
+            <label>
+                <asp:Label ID="Label1" runat="server" Text="Search"></asp:Label> 
+            </label>
+            <ej:Autocomplete ID="AutoCompleteItem" Width="100%" runat="server" DataTextField="Text"   FilterType="Contains"  MultiSelectMode="None"  DataUniqueKeyField="ID" />
         </div>
         <div class="form-group col-md-5">
             <asp:Button runat="server" class="btn btn-primary btn-block" ID="btnFind" OnClick="btnFind_Click"></asp:Button>
@@ -121,8 +127,17 @@
                         <NumericEditOptions DecimalPlaces="2"></NumericEditOptions>
                     </ej:Column> 
                     <ej:Column Field="remark" HeaderText="remark"  />
+
                     <ej:Column Field="net_cost_price" HeaderText="net_cost_price" AllowEditing="false" TextAlign="Right"   />
-                     <ej:Column Field="rebate_number"  Visible="false" HeaderText="" AllowEditing="false" TextAlign="Left" />
+
+                    <ej:Column Field="rebate_number"  Visible="false" HeaderText="" AllowEditing="false" TextAlign="Left" />
+                    <ej:Column Field="price_normal" HeaderText="price_normal" AllowEditing="false" TextAlign="Right"   />
+                    <ej:Column Field="price_member" HeaderText="price_member" AllowEditing="false" TextAlign="Right"   />
+                    <ej:Column Field="price_1" HeaderText="price_1" AllowEditing="false" TextAlign="Right"   />
+                    <ej:Column Field="price_2" HeaderText="price_2" AllowEditing="false" TextAlign="Right"   />
+                    <ej:Column Field="price_3" HeaderText="price_3" AllowEditing="false" TextAlign="Right"   />
+                    <ej:Column Field="profit" HeaderText="profit" AllowEditing="false" TextAlign="Right"   />
+                     
                 </Columns>
 
                 <ClientSideEvents CellSave="cellSave"  ActionComplete="complete" CellEdit="cellEdit" EndAdd="endAdd"  BeforeBatchSave="endEdit" EndDelete="endDelete" EndEdit="endEdit" DataBound="onDataBound" />

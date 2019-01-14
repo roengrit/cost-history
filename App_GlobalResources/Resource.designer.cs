@@ -160,6 +160,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Member Price.
+        /// </summary>
+        internal static string member_price {
+            get {
+                return ResourceManager.GetString("member_price", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
         internal static string net_cost_price {
@@ -205,6 +214,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Price 1.
+        /// </summary>
+        internal static string price_1 {
+            get {
+                return ResourceManager.GetString("price_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Price 2.
+        /// </summary>
+        internal static string price_2 {
+            get {
+                return ResourceManager.GetString("price_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Price 3.
+        /// </summary>
+        internal static string price_3 {
+            get {
+                return ResourceManager.GetString("price_3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Price After Discount.
         /// </summary>
         internal static string price_after_discount {
@@ -219,6 +255,24 @@ namespace Resources {
         internal static string price_after_pro {
             get {
                 return ResourceManager.GetString("price_after_pro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Price Normal.
+        /// </summary>
+        internal static string price_normal {
+            get {
+                return ResourceManager.GetString("price_normal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profit(%).
+        /// </summary>
+        internal static string profit {
+            get {
+                return ResourceManager.GetString("profit", resourceCulture);
             }
         }
         

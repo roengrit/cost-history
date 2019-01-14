@@ -135,6 +135,14 @@ namespace CostHistory
             this.Grid1.Columns[24].HeaderText = Resources.Resource.remark;
             this.Grid1.Columns[25].HeaderText = Resources.Resource.net_cost_price;
 
+            this.Grid1.Columns[26].HeaderText = "";
+            this.Grid1.Columns[27].HeaderText = Resources.Resource.price_normal;
+            this.Grid1.Columns[28].HeaderText = Resources.Resource.member_price;
+            this.Grid1.Columns[29].HeaderText = Resources.Resource.price_1;
+            this.Grid1.Columns[30].HeaderText = Resources.Resource.price_2;
+            this.Grid1.Columns[31].HeaderText = Resources.Resource.price_3;
+            this.Grid1.Columns[32].HeaderText = Resources.Resource.profit;
+
         }
 
         protected void FlatGrid_ServerExcelExporting(object sender, Syncfusion.JavaScript.Web.GridEventArgs e)
@@ -187,12 +195,20 @@ namespace CostHistory
                                           0.0 as other_discount,
                                           cost_history.*,
                                           0.0  as net_price_thai,
-                                          0.0  as net_cost_price
+                                          0.0  as net_cost_price,
+                                          0.0  as profit,
+                                          coalesce(ic_inventory_barcode.price ,0) as price_normal,
+                                          coalesce(ic_inventory_barcode.price_member,0) as price_member,
+                                          case when coalesce(ic_inventory_price_formula.price_1,'0') = ''  then 0 else coalesce(ic_inventory_price_formula.price_1,'0') :: numeric end as price_1,
+                                          case when coalesce(ic_inventory_price_formula.price_2,'0') = ''  then 0 else coalesce(ic_inventory_price_formula.price_2,'0') :: numeric end as price_2,
+                                          case when coalesce(ic_inventory_price_formula.price_3,'0') = ''  then 0 else coalesce(ic_inventory_price_formula.price_3,'0') :: numeric end as price_3 
                                     from  ic_trans_detail join  
                                           ic_inventory on ic_trans_detail.item_code = ic_inventory.code  join 
                                           ic_trans on ic_trans_detail.doc_no = ic_trans.doc_no left join  
                                           ap_supplier on ic_trans.cust_code = ap_supplier.code left join 
                                           ic_unit on ic_trans_detail.unit_code = ic_unit.code left join
+                                          ic_inventory_barcode on ic_trans_detail.item_code = ic_inventory_barcode.ic_code and ic_trans_detail.unit_code = ic_inventory_barcode.unit_code and ic_inventory_barcode.status = 1 left join
+                                          ic_inventory_price_formula on ic_trans_detail.item_code = ic_inventory_price_formula.ic_code and ic_trans_detail.unit_code = ic_inventory_price_formula.unit_code left join
                                           cost_history on ic_trans_detail.doc_no = cost_history.doc_no 
                                                        and ic_trans_detail.item_code = cost_history.item_code 
                                                        and ic_trans_detail.unit_code = cost_history.unit_code                                          
@@ -269,6 +285,12 @@ namespace CostHistory
                     item["net_price_thai"] = Convert.ToDecimal(Convert.ToDecimal(item["receipt_price"]).ToString("N2"));
                     item["net_cost_price"] = Convert.ToDecimal(Convert.ToDecimal(item["receipt_price"]).ToString("N2"));
                 }
+
+                item["profit"] = ((((Convert.ToDecimal(item["price_normal"]) +
+                                         Convert.ToDecimal(item["price_member"]) + 
+                                         Convert.ToDecimal(item["price_1"]) + 
+                                         Convert.ToDecimal(item["price_2"]) + 
+                                         Convert.ToDecimal(item["price_3"])) / 5) - Convert.ToDecimal(item["net_cost_price"])) / Convert.ToDecimal(item["net_cost_price"])).ToString("N2");
 
             }
             Session["SqlDataSource"] = dt;

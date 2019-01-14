@@ -228,4 +228,22 @@
   <data name="to" xml:space="preserve">
     <value>ໄປສູ່</value>
   </data>
+  <data name="member_price" xml:space="preserve">
+    <value>ສະຫມາຊິກລາຄາ</value>
+  </data>
+  <data name="price_1" xml:space="preserve">
+    <value>ລາຄາ 1</value>
+  </data>
+  <data name="price_2" xml:space="preserve">
+    <value>ລາຄາ 2</value>
+  </data>
+  <data name="price_3" xml:space="preserve">
+    <value>ລາຄາ 3</value>
+  </data>
+  <data name="price_normal" xml:space="preserve">
+    <value>ລາຄາປະກະຕິ</value>
+  </data>
+  <data name="profit" xml:space="preserve">
+    <value>ກໍາໄຮ (%)</value>
+  </data>
 </root>
