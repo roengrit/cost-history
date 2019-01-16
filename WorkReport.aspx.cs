@@ -319,14 +319,16 @@ namespace CostHistory
                 {
                     divide += 1;
                 }
-                item["profit"] = ((((Convert.ToDecimal(item["price_normal"]) +
-                                         Convert.ToDecimal(item["price_member"]) + 
-                                         Convert.ToDecimal(item["price_1"]) + 
-                                         Convert.ToDecimal(item["price_2"]) + 
-                                         Convert.ToDecimal(item["price_3"]) +
-                                         Convert.ToDecimal(item["price_4"]) +
-                                         Convert.ToDecimal(item["price_5"])) / divide) - Convert.ToDecimal(item["net_cost_price"])) / Convert.ToDecimal(item["net_cost_price"])).ToString("N2");
-
+                if (divide > 0)
+                    item["profit"] = ((((Convert.ToDecimal(item["price_normal"]) +
+                                             Convert.ToDecimal(item["price_member"]) +
+                                             Convert.ToDecimal(item["price_1"]) +
+                                             Convert.ToDecimal(item["price_2"]) +
+                                             Convert.ToDecimal(item["price_3"]) +
+                                             Convert.ToDecimal(item["price_4"]) +
+                                             Convert.ToDecimal(item["price_5"])) / divide) - Convert.ToDecimal(item["net_cost_price"])) / Convert.ToDecimal(item["net_cost_price"])).ToString("N2");
+                else
+                    item["profit"] = 0;
 
             }
             Session["SqlDataSource"] = dt;
