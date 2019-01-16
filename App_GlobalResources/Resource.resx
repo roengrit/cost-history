@@ -246,4 +246,10 @@
   <data name="profit" xml:space="preserve">
     <value>Profit(%)</value>
   </data>
+  <data name="price_4" xml:space="preserve">
+    <value>Price 4</value>
+  </data>
+  <data name="price_5" xml:space="preserve">
+    <value>Price 5</value>
+  </data>
 </root>

@@ -136,6 +136,8 @@
                     <ej:Column Field="price_1" HeaderText="price_1" AllowEditing="false" TextAlign="Right"   />
                     <ej:Column Field="price_2" HeaderText="price_2" AllowEditing="false" TextAlign="Right"   />
                     <ej:Column Field="price_3" HeaderText="price_3" AllowEditing="false" TextAlign="Right"   />
+                    <ej:Column Field="price_4" HeaderText="price_4" AllowEditing="false" TextAlign="Right"   />
+                    <ej:Column Field="price_5" HeaderText="price_5" AllowEditing="false" TextAlign="Right"   />
                     <ej:Column Field="profit" HeaderText="profit" AllowEditing="false" TextAlign="Right"   />
                      
                 </Columns>

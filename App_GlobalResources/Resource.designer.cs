@@ -241,6 +241,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Price 4.
+        /// </summary>
+        internal static string price_4 {
+            get {
+                return ResourceManager.GetString("price_4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Price 5.
+        /// </summary>
+        internal static string price_5 {
+            get {
+                return ResourceManager.GetString("price_5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Price After Discount.
         /// </summary>
         internal static string price_after_discount {
