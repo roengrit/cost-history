@@ -6,7 +6,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <_PublishTargetUrl>H:\PB</_PublishTargetUrl>
+    <_PublishTargetUrl>H:\Deploy\COSTHISTORY</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
     <File Include=".gitignore">
@@ -52,13 +52,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/12/2019 21:34:25</publishTime>
     </File>
     <File Include="App_GlobalResources/Resource.th-TH.resx">
-      <publishTime>01/16/2019 19:15:58</publishTime>
+      <publishTime>01/22/2019 14:21:20</publishTime>
     </File>
     <File Include="bin/CostHistory.dll">
-      <publishTime>01/22/2019 11:35:24</publishTime>
+      <publishTime>01/22/2019 14:26:16</publishTime>
     </File>
     <File Include="bin/CostHistory.pdb">
-      <publishTime>01/22/2019 11:35:24</publishTime>
+      <publishTime>01/22/2019 14:26:16</publishTime>
     </File>
     <File Include="bin/de/Npgsql.resources.dll">
       <publishTime>09/18/2015 07:30:48</publishTime>
@@ -3718,7 +3718,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/22/2018 14:12:51</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>01/13/2019 20:39:13</publishTime>
+      <publishTime>01/22/2019 12:14:00</publishTime>
     </File>
     <File Include="Web.Debug.config">
       <publishTime>11/28/2018 17:37:26</publishTime>

@@ -282,7 +282,7 @@ namespace CostHistory
                                           cost_history on ic_trans_detail.doc_no = cost_history.doc_no 
                                                        and ic_trans_detail.item_code = cost_history.item_code 
                                                        and ic_trans_detail.unit_code = cost_history.unit_code                                          
-                                    where ic_trans.trans_flag = 6 and ic_trans_detail.last_status = 0 and ic_trans_detail.qty <> 0 and ic_trans_detail.price <> 0 ";
+                                    where ic_trans.trans_flag = 12 and ic_trans_detail.last_status = 0 and ic_trans_detail.qty <> 0 and ic_trans_detail.price <> 0 ";
 
             if (dtStartDate.Value.HasValue && !dtEndDate.Value.HasValue)
             {
@@ -387,13 +387,16 @@ namespace CostHistory
                     divide += 1;
                 }
                 if (divide > 0)
-                    item["profit"] = ((((Convert.ToDecimal(item["price_normal"]) +
+                {
+                    var temp = ((Convert.ToDecimal(item["price_normal"]) +
                                              Convert.ToDecimal(item["price_member"]) +
                                              Convert.ToDecimal(item["price_1"]) +
                                              Convert.ToDecimal(item["price_2"]) +
                                              Convert.ToDecimal(item["price_3"]) +
                                              Convert.ToDecimal(item["price_4"]) +
-                                             Convert.ToDecimal(item["price_5"])) / divide) - Convert.ToDecimal(item["net_cost_price"])) / Convert.ToDecimal(item["net_cost_price"])).ToString("N2");
+                                             Convert.ToDecimal(item["price_5"])) / divide);
+                    item["profit"] = ((((temp) - Convert.ToDecimal(item["net_cost_price"])) / temp )*100).ToString("N2");
+                }
                 else
                     item["profit"] = 0;
 

@@ -142,7 +142,7 @@
     <value>รหัสสินค้า</value>
   </data>
   <data name="item_name" xml:space="preserve">
-    <value>ชื่อ</value>
+    <value>ชื่อสินค้า</value>
   </data>
   <data name="lang" xml:space="preserve">
     <value>ไทย</value>

@@ -179,7 +179,7 @@ namespace CostHistory
                                           cost_history on ic_trans_detail.doc_no = cost_history.doc_no 
                                                        and ic_trans_detail.item_code = cost_history.item_code 
                                                        and ic_trans_detail.unit_code = cost_history.unit_code                                          
-                                    where ic_trans.trans_flag = 6 and ic_trans_detail.last_status = 0 and ic_trans_detail.qty <> 0 and ic_trans_detail.price <> 0 ";
+                                    where ic_trans.trans_flag = 12 and ic_trans_detail.last_status = 0 and ic_trans_detail.qty <> 0 and ic_trans_detail.price <> 0 ";
 
             if (dtStartDate.Value.HasValue && !dtEndDate.Value.HasValue)
             {
