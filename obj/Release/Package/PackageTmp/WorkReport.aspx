@@ -5,8 +5,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="StyleSection" runat="server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
-    <script src='<%= ResolveUrl("~/Scripts/ej/i18n/ej.culture.en-US.min.js")%>' type="text/javascript"></script>
-    <script src='<%= ResolveUrl("~/Scripts/ej/l10n/ej.localetexts.en-US.min.js")%>' type="text/javascript"></script>
+ 
     <script>
         if (localStorage.getItem("hide") == "1") {
             hide();
@@ -68,7 +67,9 @@
             <img width="24" height="24" onclick="hide()" style="margin-top: 8px; cursor: pointer;" src="Content/svg/si-glyph-arrow-up.svg" />
         </div>
          <asp:Label ID="lblSave" Visible="false" runat="server" Text="Search"></asp:Label>
-
+         <div class="form-group col-md-5">
+            <asp:Button runat="server" Text="Export" class="btn btn-success btn-block" ID="Button1" OnClick="Button1_Click"></asp:Button>
+        </div>
     </div>
 
     <div id="ControlRegion" style="width: 100%">

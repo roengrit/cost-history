@@ -55,13 +55,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/16/2019 19:15:58</publishTime>
     </File>
     <File Include="bin/CostHistory.dll">
-      <publishTime>01/16/2019 19:30:42</publishTime>
+      <publishTime>01/22/2019 11:35:24</publishTime>
     </File>
     <File Include="bin/CostHistory.pdb">
-      <publishTime>01/16/2019 19:30:42</publishTime>
+      <publishTime>01/22/2019 11:35:24</publishTime>
     </File>
     <File Include="bin/de/Npgsql.resources.dll">
       <publishTime>09/18/2015 07:30:48</publishTime>
+    </File>
+    <File Include="bin/EPPlus.dll">
+      <publishTime>01/06/2019 08:49:10</publishTime>
     </File>
     <File Include="bin/es/Npgsql.resources.dll">
       <publishTime>09/18/2015 07:30:48</publishTime>
@@ -3733,7 +3736,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/10/2019 23:10:44</publishTime>
     </File>
     <File Include="WorkReport.aspx">
-      <publishTime>01/16/2019 19:13:38</publishTime>
+      <publishTime>01/22/2019 11:31:13</publishTime>
     </File>
     <File Include="WorkReport.aspx.cs">
       <publishTime>01/12/2019 22:10:13</publishTime>
