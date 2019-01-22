@@ -84,6 +84,16 @@ namespace CostHistory
             lblTo.Text = Resources.Resource.to;
             lblDocNo.Text = Resources.Resource.doc_no;
             lblSave.Text = Resources.Resource.save;
+            if (dtStartDate.Value.HasValue)
+            {
+                if (dtStartDate.Value.Value.Year == 2099)
+                    dtStartDate.Value = null;
+            }
+            if (dtEndDate.Value.HasValue)
+            {
+                if (dtEndDate.Value.Value.Year == 2099)
+                    dtEndDate.Value = null;
+            }
         }
 
         private void BindDataSource()
