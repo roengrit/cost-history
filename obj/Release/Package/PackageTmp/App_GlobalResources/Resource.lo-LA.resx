@@ -160,7 +160,7 @@
     <value>ລາຄາ</value>
   </data>
   <data name="price_after_discount" xml:space="preserve">
-    <value>ລາຄາຫຼັງຈາກການສ່ວນລົດ</value>
+    <value>ລາຄາຫລັງສ່ວນລົດ</value>
   </data>
   <data name="qty" xml:space="preserve">
     <value>ຈໍານວນ</value>
@@ -181,7 +181,7 @@
     <value>ຟຣີ</value>
   </data>
   <data name="import_value" xml:space="preserve">
-    <value>ຄ່ານໍາເຂົ້າຜະລິດຕະພັນ</value>
+    <value>ຄ່ານໍາເຂົ້າສິນຄ້າ</value>
   </data>
   <data name="net_price_thai" xml:space="preserve">
     <value>ລາຄາທຶນໄທ</value>
@@ -196,7 +196,7 @@
     <value>ລາຄາຫຼັງຈາກສົ່ງເສີມ</value>
   </data>
   <data name="rebate" xml:space="preserve">
-    <value>ເງິນລົດ</value>
+    <value>Rebate</value>
   </data>
   <data name="remark" xml:space="preserve">
     <value>ຫມາຍເຫດ</value>
@@ -211,10 +211,10 @@
     <value>Transport:NK-VT</value>
   </data>
   <data name="vat_add" xml:space="preserve">
-    <value>ພາສີ10%</value>
+    <value>ຄ່າເອກກະສານ</value>
   </data>
   <data name="net_cost_price" xml:space="preserve">
-    <value>ລາຄາທຶນສຸດທິ</value>
+    <value>ລາຄາທຶນລາວ</value>
   </data>
   <data name="find" xml:space="preserve">
     <value>ຄົ້ນຫາ</value>
