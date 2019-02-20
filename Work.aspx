@@ -186,6 +186,8 @@
                     objRow.rebate_number = rebate_number
                 }
 
+                objRow.rebate_number = objRow.rebate_number == null ? 0 : objRow.rebate_number;
+
                 switch (args.columnName) {
                     case 'vat_add': objRow.vat_add = isNaN(args.value) ? 0 : parseFloat(args.value); break;
                     case 'transport_bkk_nk': objRow.transport_bkk_nk = isNaN(args.value) ? 0 : parseFloat(args.value); break;
