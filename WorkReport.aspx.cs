@@ -326,13 +326,13 @@ namespace CostHistory
             dt = Connection.GetData(sql);
             foreach (DataRow item in dt.Rows)
             {
-                item["other_discount"] = Convert.ToDecimal((Convert.ToDecimal(item["receipt_price"]) - (
-                    (Convert.ToDecimal(item["qty"]) * Convert.ToDecimal(item["receipt_price"])) /
-                    (Convert.ToDecimal(item["qty"]) + Convert.ToDecimal(item["free_value"]))
-                    )).ToString("N2"));
+                item["other_discount"] = Convert.ToDecimal((Convert.ToDecimal(item["receipt_price"], CultureInfo.InvariantCulture) - (
+                    (Convert.ToDecimal(item["qty"], CultureInfo.InvariantCulture) * Convert.ToDecimal(item["receipt_price"], CultureInfo.InvariantCulture)) /
+                    (Convert.ToDecimal(item["qty"], CultureInfo.InvariantCulture) + Convert.ToDecimal(item["free_value"], CultureInfo.InvariantCulture))
+                    )).ToString("N2", CultureInfo.InvariantCulture));
 
-                item["price_after_discount"] = Convert.ToDecimal(Convert.ToDecimal(item["price_after_discount"]).ToString("N2"));
-                item["receipt_price"] = Convert.ToDecimal(Convert.ToDecimal(item["receipt_price"]).ToString("N2"));
+                item["price_after_discount"] = Convert.ToDecimal(Convert.ToDecimal(item["price_after_discount"], CultureInfo.InvariantCulture).ToString("N2", CultureInfo.InvariantCulture), CultureInfo.InvariantCulture);
+                item["receipt_price"] = Convert.ToDecimal(Convert.ToDecimal(item["receipt_price"], CultureInfo.InvariantCulture).ToString("N2", CultureInfo.InvariantCulture), CultureInfo.InvariantCulture);
 
                 if (item["doc_no1"].ToString() != "")
                 {
@@ -341,70 +341,70 @@ namespace CostHistory
                     {
                         if (item["rebate"].ToString().Contains("%"))
                         {
-                            rebate_number = (Convert.ToDecimal(item["price_after_discount"]) * -1) * (Convert.ToDecimal(item["rebate"].ToString().Replace("%", "")) / 100);
+                            rebate_number = (Convert.ToDecimal(item["price_after_discount"], CultureInfo.InvariantCulture) * -1) * (Convert.ToDecimal(item["rebate"].ToString().Replace("%", ""), CultureInfo.InvariantCulture) / 100);
                         }
                         else if (!string.IsNullOrEmpty(item["rebate"].ToString()))
                         {
-                            rebate_number = Convert.ToDecimal(item["rebate"].ToString().Replace("%", "")) * -1;
+                            rebate_number = Convert.ToDecimal(item["rebate"].ToString().Replace("%", ""), CultureInfo.InvariantCulture) * -1;
                         }
                         else
                         {
                             rebate_number = 0;
                         }
-                        item["rebate_number"] = Convert.ToDecimal(rebate_number.ToString("N2"));
+                        item["rebate_number"] = Convert.ToDecimal(rebate_number.ToString("N2", CultureInfo.InvariantCulture), CultureInfo.InvariantCulture);
                     }
 
-                    item["price_after_pro"] = Convert.ToDecimal(item["receipt_price"]) + Convert.ToDecimal(item["rebate_number"]) + Convert.ToDecimal(item["other_discount"]);
-                    item["net_price_thai"] = Convert.ToDecimal(item["receipt_price"]) + Convert.ToDecimal(item["vat_add"]) + Convert.ToDecimal(item["transport_bkk_nk"]) + Convert.ToDecimal(item["rebate_number"]);
-                    item["net_cost_price"] = Convert.ToDecimal(item["transport_nk_vt"]) + Convert.ToDecimal(item["transport_bkk_vt"]) + Convert.ToDecimal(item["import_value"]) + Convert.ToDecimal(item["net_price_thai"]);
+                    item["price_after_pro"] = Convert.ToDecimal(item["receipt_price"], CultureInfo.InvariantCulture) + Convert.ToDecimal(item["rebate_number"], CultureInfo.InvariantCulture) + Convert.ToDecimal(item["other_discount"], CultureInfo.InvariantCulture);
+                    item["net_price_thai"] = Convert.ToDecimal(item["receipt_price"], CultureInfo.InvariantCulture) + Convert.ToDecimal(item["vat_add"], CultureInfo.InvariantCulture) + Convert.ToDecimal(item["transport_bkk_nk"], CultureInfo.InvariantCulture) + Convert.ToDecimal(item["rebate_number"], CultureInfo.InvariantCulture);
+                    item["net_cost_price"] = Convert.ToDecimal(item["transport_nk_vt"], CultureInfo.InvariantCulture) + Convert.ToDecimal(item["transport_bkk_vt"], CultureInfo.InvariantCulture) + Convert.ToDecimal(item["import_value"], CultureInfo.InvariantCulture) + Convert.ToDecimal(item["net_price_thai"], CultureInfo.InvariantCulture);
                 }
                 else
                 {
-                    item["price_after_discount"] = Convert.ToDecimal(Convert.ToDecimal(item["receipt_price"]).ToString("N2"));
-                    item["net_price_thai"] = Convert.ToDecimal(Convert.ToDecimal(item["receipt_price"]).ToString("N2"));
-                    item["net_cost_price"] = Convert.ToDecimal(Convert.ToDecimal(item["receipt_price"]).ToString("N2"));
+                    item["price_after_discount"] = Convert.ToDecimal(Convert.ToDecimal(item["receipt_price"], CultureInfo.InvariantCulture).ToString("N2", CultureInfo.InvariantCulture), CultureInfo.InvariantCulture);
+                    item["net_price_thai"] = Convert.ToDecimal(Convert.ToDecimal(item["receipt_price"], CultureInfo.InvariantCulture).ToString("N2", CultureInfo.InvariantCulture), CultureInfo.InvariantCulture);
+                    item["net_cost_price"] = Convert.ToDecimal(Convert.ToDecimal(item["receipt_price"], CultureInfo.InvariantCulture).ToString("N2", CultureInfo.InvariantCulture), CultureInfo.InvariantCulture);
                 }
 
 
                 var divide = 0.0m;
-                if (Convert.ToDecimal(item["price_normal"]) > 0)
+                if (Convert.ToDecimal(item["price_normal"], CultureInfo.InvariantCulture) > 0)
                 {
                     divide += 1;
                 }
-                if (Convert.ToDecimal(item["price_member"]) > 0)
+                if (Convert.ToDecimal(item["price_member"], CultureInfo.InvariantCulture) > 0)
                 {
                     divide += 1;
                 }
-                if (Convert.ToDecimal(item["price_1"]) > 0)
+                if (Convert.ToDecimal(item["price_1"], CultureInfo.InvariantCulture) > 0)
                 {
                     divide += 1;
                 }
-                if (Convert.ToDecimal(item["price_2"]) > 0)
+                if (Convert.ToDecimal(item["price_2"], CultureInfo.InvariantCulture) > 0)
                 {
                     divide += 1;
                 }
-                if (Convert.ToDecimal(item["price_3"]) > 0)
+                if (Convert.ToDecimal(item["price_3"], CultureInfo.InvariantCulture) > 0)
                 {
                     divide += 1;
                 }
-                if (Convert.ToDecimal(item["price_4"]) > 0)
+                if (Convert.ToDecimal(item["price_4"], CultureInfo.InvariantCulture) > 0)
                 {
                     divide += 1;
                 }
-                if (Convert.ToDecimal(item["price_5"]) > 0)
+                if (Convert.ToDecimal(item["price_5"], CultureInfo.InvariantCulture) > 0)
                 {
                     divide += 1;
                 }
                 if (divide > 0)
                 {
-                    var temp = ((Convert.ToDecimal(item["price_normal"]) +
-                                             Convert.ToDecimal(item["price_member"]) +
-                                             Convert.ToDecimal(item["price_1"]) +
-                                             Convert.ToDecimal(item["price_2"]) +
-                                             Convert.ToDecimal(item["price_3"]) +
-                                             Convert.ToDecimal(item["price_4"]) +
-                                             Convert.ToDecimal(item["price_5"])) / divide);
-                    item["profit"] = ((((temp) - Convert.ToDecimal(item["net_cost_price"])) / temp )*100).ToString("N2");
+                    var temp = ((Convert.ToDecimal(item["price_normal"], CultureInfo.InvariantCulture) +
+                                             Convert.ToDecimal(item["price_member"], CultureInfo.InvariantCulture) +
+                                             Convert.ToDecimal(item["price_1"], CultureInfo.InvariantCulture) +
+                                             Convert.ToDecimal(item["price_2"], CultureInfo.InvariantCulture) +
+                                             Convert.ToDecimal(item["price_3"], CultureInfo.InvariantCulture) +
+                                             Convert.ToDecimal(item["price_4"], CultureInfo.InvariantCulture) +
+                                             Convert.ToDecimal(item["price_5"], CultureInfo.InvariantCulture)) / divide);
+                    item["profit"] = ((((temp) - Convert.ToDecimal(item["net_cost_price"], CultureInfo.InvariantCulture)) / temp )*100).ToString("N2", CultureInfo.InvariantCulture);
                 }
                 else
                     item["profit"] = 0;
